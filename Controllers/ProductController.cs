@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using ProductsAPI.Classess;
+using ProductsAPI.Services;
 using System.Collections.Generic;
+using System.Data.Common;
 
 namespace ProductsAPI.Controllers
 {
@@ -8,78 +11,68 @@ namespace ProductsAPI.Controllers
     [Route("api/[Controller]")]
     public class ProductsController : ControllerBase
     {
-        private static readonly List<Product> Products = new List<Product>()
+        private readonly IProductService _productService;
+
+        //private static readonly List<Product> Products = new List<Product>()
+        //{
+        //    new Product { Id = 1, Name = "Cup", Price = 3.99m },
+        //    new Product { Id = 2, Name = "Toaster", Price = 4.99m },
+        //    new Product { Id = 3, Name = "Bottle", Price = 3.99m },
+        //    new Product { Id = 4, Name = "TV", Price = 55.99m },
+        //    new Product { Id = 5, Name = "Blanket", Price = 10.99m }
+        //};
+
+        public ProductsController(IProductService productService)
         {
-            new Product { Id = 1, Name = "Cup", Price = 3.99m },
-            new Product { Id = 2, Name = "Toaster", Price = 4.99m },
-            new Product { Id = 3, Name = "Salt Shaker", Price = 0.99m }
-        };
+            _productService = productService;
+        }
 
         [HttpGet]
         public ActionResult<IEnumerable<Product>> GetAll()
         {
-            return Ok(Products);
+            return Ok(_productService.GetAll());
         }
 
 
         [HttpGet("{id}")]
         public ActionResult<Product> GetProductById(int id)
         {
+            var product = _productService.GetProductById(id);
 
-            var product = Products.FirstOrDefault(prod => prod.Id == id);
-
-            if (product == null)
-            {
-                return NotFound();
-            }
-            else {
-                return Ok(product);
-            }
+            if (product == null){ return NotFound();}
+                
+            return Ok(product);
         }
 
         [HttpPost]
         public ActionResult<Product> AddProduct(Product product) {
 
-            var newId = Products.Any() ? Products.Max(p => p.Id) + 1 : 1;
-            product.Id = newId;
+            var createProduct = _productService.AddProduct(product);
 
-            Products.Add(product);
-
-
-            return CreatedAtAction(
-                nameof(GetProductById),
-                new { id = product.Id },
-                product
-            );
+            return CreatedAtAction(nameof(GetProductById), new { id = createProduct.Id}, createProduct);
         }
 
         [HttpPut("{id}")]
         public ActionResult<Product> UpdateProduct(int id, Product upDatingProduct)
         {
-            var existingProduct = Products.FirstOrDefault(prod => prod.Id == id);
+            var updated = _productService.UpdateProduct(id, upDatingProduct);
 
-            if (existingProduct == null)
-            {
+            if (updated == null) { 
                 return NotFound();
             }
 
-            existingProduct.Name = upDatingProduct.Name;
-            existingProduct.Price = upDatingProduct.Price;
-
-
-                return NoContent();
+            return Ok(updated);
         }
 
         [HttpDelete("{id}")]
         public ActionResult<Product> DeleteProduct(int id) {
 
-            var existingProduct = Products.FirstOrDefault(prod => prod.Id == id);
+            var deleted = _productService.DeleteProduct(id);
 
-            if (existingProduct == null) {
+            if (deleted == null)
+            {
                 return NotFound();
             }
-
-            Products.Remove(existingProduct);
 
             return NoContent();
         }

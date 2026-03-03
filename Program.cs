@@ -1,4 +1,6 @@
 
+using ProductsAPI.Services;
+
 namespace ProductsAPI
 {
     public class Program
@@ -9,7 +11,7 @@ namespace ProductsAPI
 
             builder.Services.AddControllers();
             builder.Services.AddSwaggerGen();
-
+            builder.Services.AddScoped<IProductService, ProductService>();
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())

@@ -33,3 +33,4 @@ C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\ProductsAPI.pdb
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\ProductsAPI.genruntimeconfig.cache
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\ref\ProductsAPI.dll
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\ProductsAPI.sourcelink.json

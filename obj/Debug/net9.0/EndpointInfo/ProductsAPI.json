@@ -229,7 +229,8 @@
     "schemas": {
       "Product": {
         "required": [
-          "name"
+          "name",
+          "price"
         ],
         "type": "object",
         "properties": {
