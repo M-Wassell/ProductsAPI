@@ -1,11 +1,12 @@
 ﻿using ProductsAPI.Classess;
+using ProductsAPI.Models;
 
 namespace ProductsAPI.Services
 {
     public class ProductService : IProductService
     {
 
-        private static readonly List<Product> Products = new List<Product>()
+        private static readonly  List<Product> Products = new List<Product>()
         {
             new Product { Id = 1, Name = "Cup", Price = 3.99m },
             new Product { Id = 2, Name = "Toaster", Price = 4.99m },
@@ -14,63 +15,114 @@ namespace ProductsAPI.Services
             new Product { Id = 5, Name = "Blanket", Price = 10.99m }
         };
 
-        public List<Product> GetAll()
+        public Task<ServiceResponse<List<Product>>> GetAll()
         {
-            return Products;
+            var response = new ServiceResponse<List<Product>>();
+
+            response.Data = Products;
+
+            return Task.FromResult(response);
         }
-        public Product? GetProductById(int id)
+        public Task<ServiceResponse<Product>> GetProductById(int id)
         {
-            return Products.FirstOrDefault(x => x.Id == id);
 
+            var response = new ServiceResponse<Product>();
+
+            var product = Products.FirstOrDefault(x => x.Id == id);
+
+            if (product == null)
+            {
+                response.Success = false;
+                response.Message = "Product not found";
+                response.Data = null;
+            }
+            else { 
+                response.Data = product;
+            }
+
+                return Task.FromResult(response);
 
         }
 
-        public Product AddProduct(Product product)
+        public Task<ServiceResponse<Product>> AddProduct(Product product)
         {
-            var newId = Products.Any() ? Products.Max(p => p.Id) + 1 : 1;// only used for hard coded list items to simulate incrementing the Id
+            var response = new ServiceResponse<Product>();
+
+            if (product == null)
+            {
+                response.Success = false;
+                response.Message = "Product not found";
+                response.Data = null;
+            }
+
+            if (String.IsNullOrWhiteSpace(product.Name)) {
+                response.Success = false;
+                response.Message = "Product Name is required";
+                return Task.FromResult(response);
+            }
+
+            var newId = Products.Any() ? Products.Max(p => p.Id) + 1 : 1;
+            
             product.Id = newId;
-
+            
             Products.Add(product);
 
-            return product;
+            response.Data = product;
+
+            return Task.FromResult(response);
             
         }
         
-        public Product? UpdateProduct(int id, Product upDatingProduct)
+        public Task<ServiceResponse<Product>>? UpdateProduct(int id, Product upDatingProduct)
         {
-            if (id <= 0) {
-                return null;
-            }
+
+            var response = new ServiceResponse<Product>();
             var existingProduct = Products.FirstOrDefault(prod => prod.Id == id);
 
-            if (existingProduct == null) {
-                return null;
+            if(existingProduct == null){ 
+                response.Success = false;
+                response.Message = "Product not found";
+                return Task.FromResult(response);
+            }
+
+            if (String.IsNullOrWhiteSpace(upDatingProduct.Name)) {  
+                response.Success = false;
+                response.Message = "Product Name is required";
+                return Task.FromResult(response);
             }
 
             existingProduct.Name = upDatingProduct.Name;
             existingProduct.Price = upDatingProduct.Price;
 
+            response.Data = existingProduct;
 
-            return existingProduct;
+            return Task.FromResult(response);
         }
 
-        public Product? DeleteProduct(int id)
+        public Task<ServiceResponse<Product>> DeleteProduct(int id)
         {
-            if (id <= 0) {
-                return null;
+            var response = new ServiceResponse<Product>();
+            if (id <= 0)
+            {
+                response.Success = false;
+                response.Message = "Invalid Product Id";
+                return Task.FromResult(response);
             }
 
             var existingProduct = Products.FirstOrDefault(prod => prod.Id == id);
 
-            if (existingProduct == null)
-            {
-                return null;
-
+            if (existingProduct == null) { 
+                response.Success = false;
+                response.Message = "Product not found";
+                return Task.FromResult(response);
             }
 
             Products.Remove(existingProduct);
+            response.Message = "Product Deleted Successfully";
 
-            return existingProduct;
+            response.Data = existingProduct;
+
+            return Task.FromResult(response);
         }
 
     }

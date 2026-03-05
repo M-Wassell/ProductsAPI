@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using ProductsAPI.Classess;
+using ProductsAPI.Models;
 using ProductsAPI.Services;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Threading.Tasks;
 
 namespace ProductsAPI.Controllers
 {
@@ -13,59 +15,68 @@ namespace ProductsAPI.Controllers
     {
         private readonly IProductService _productService;
 
-        //private static readonly List<Product> Products = new List<Product>()
-        //{
-        //    new Product { Id = 1, Name = "Cup", Price = 3.99m },
-        //    new Product { Id = 2, Name = "Toaster", Price = 4.99m },
-        //    new Product { Id = 3, Name = "Bottle", Price = 3.99m },
-        //    new Product { Id = 4, Name = "TV", Price = 55.99m },
-        //    new Product { Id = 5, Name = "Blanket", Price = 10.99m }
-        //};
-
         public ProductsController(IProductService productService)
         {
             _productService = productService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Product>> GetAll()
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> GetAll()
         {
-            return Ok(_productService.GetAll());
+            var result = await _productService.GetAll();
+            return Ok(result);
         }
 
 
         [HttpGet("{id}")]
-        public ActionResult<Product> GetProductById(int id)
+        public async Task<ActionResult<Product>> GetProductById(int id)
         {
+            if (id <= 0) {
+                return NotFound();
+            }
+
             var product = _productService.GetProductById(id);
 
-            if (product == null){ return NotFound();}
+            if (product == null){ 
+                return NotFound();
+            }
                 
-            return Ok(product);
+            return Ok(await product);
         }
 
         [HttpPost]
-        public ActionResult<Product> AddProduct(Product product) {
+        public async Task<ActionResult<Product>> AddProduct(Product product) {
+
+            if (product == null){ 
+                return NotFound();
+            }
 
             var createProduct = _productService.AddProduct(product);
 
-            return CreatedAtAction(nameof(GetProductById), new { id = createProduct.Id}, createProduct);
+            return CreatedAtAction(nameof(GetProductById), new { id = createProduct.Id}, await createProduct);
         }
 
         [HttpPut("{id}")]
-        public ActionResult<Product> UpdateProduct(int id, Product upDatingProduct)
+        public async Task<ActionResult<Product>> UpdateProduct(int id, Product upDatingProduct)
         {
+            if (id <= 0) {
+                return NotFound();
+            }
             var updated = _productService.UpdateProduct(id, upDatingProduct);
 
             if (updated == null) { 
                 return NotFound();
             }
 
-            return Ok(updated);
+            return Ok(await updated);
         }
 
         [HttpDelete("{id}")]
         public ActionResult<Product> DeleteProduct(int id) {
+
+            if (id <= 0) {
+                return NotFound();
+            }
 
             var deleted = _productService.DeleteProduct(id);
 
@@ -76,19 +87,6 @@ namespace ProductsAPI.Controllers
 
             return NoContent();
         }
-
-        /*
-         * Route("Function call") allows us to pass in the function of another Action Result
-         * Leaving us with this Route https://localhost:7239/api/Products/GetAll
-         * This is not good naming but woth noting.
-         */
-
-        //[Route("GetAll")]
-        //[HttpGet]
-        //public ActionResult<IEnumerable<Product>> Get()
-        //{
-        //    return Ok(Products);
-        //}
 
     }
 }
