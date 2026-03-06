@@ -5,7 +5,6 @@ namespace ProductsAPI.Services
 {
     public class ProductService : IProductService
     {
-
         private static readonly  List<Product> Products = new List<Product>()
         {
             new Product { Id = 1, Name = "Cup", Price = 3.99m },
@@ -19,14 +18,27 @@ namespace ProductsAPI.Services
         {
             var response = new ServiceResponse<List<Product>>();
 
-            response.Data = Products;
+            if (Products.Count <= 0) { 
+                response.Success = false;
+                response.Message = "Product List Coulf not be found";
+                return Task.FromResult(response);
+            }
 
+            response.Data = Products;
+            response.Success = true;
+            response.Message = "Product List Found";
+           
             return Task.FromResult(response);
         }
         public Task<ServiceResponse<Product>> GetProductById(int id)
         {
-
             var response = new ServiceResponse<Product>();
+
+            if (id <= 0) { 
+                response.Success = false;
+                response.Message = "Product Id not found";
+                return Task.FromResult(response);
+            }
 
             var product = Products.FirstOrDefault(x => x.Id == id);
 
@@ -34,14 +46,13 @@ namespace ProductsAPI.Services
             {
                 response.Success = false;
                 response.Message = "Product not found";
-                response.Data = null;
+                return Task.FromResult(response);
             }
             else { 
                 response.Data = product;
             }
 
-                return Task.FromResult(response);
-
+            return Task.FromResult(response);
         }
 
         public Task<ServiceResponse<Product>> AddProduct(Product product)
@@ -52,7 +63,7 @@ namespace ProductsAPI.Services
             {
                 response.Success = false;
                 response.Message = "Product not found";
-                response.Data = null;
+                return Task.FromResult(response);
             }
 
             if (String.IsNullOrWhiteSpace(product.Name)) {
@@ -64,19 +75,25 @@ namespace ProductsAPI.Services
             var newId = Products.Any() ? Products.Max(p => p.Id) + 1 : 1;
             
             product.Id = newId;
-            
             Products.Add(product);
 
             response.Data = product;
-
-            return Task.FromResult(response);
+            response.Success = true;
+            response.Message = $"Product Has been Added";
             
+            return Task.FromResult(response);
         }
         
         public Task<ServiceResponse<Product>>? UpdateProduct(int id, Product upDatingProduct)
         {
-
             var response = new ServiceResponse<Product>();
+
+            if (id <= 0) { 
+                response.Success = false;
+                response.Message = "Existing Product does not exist";
+                return Task.FromResult(response);
+            }
+
             var existingProduct = Products.FirstOrDefault(prod => prod.Id == id);
 
             if(existingProduct == null){ 
@@ -95,7 +112,9 @@ namespace ProductsAPI.Services
             existingProduct.Price = upDatingProduct.Price;
 
             response.Data = existingProduct;
-
+            response.Success = true;
+            response.Message = "Product Updated Successfully";
+            
             return Task.FromResult(response);
         }
 
@@ -116,14 +135,13 @@ namespace ProductsAPI.Services
                 response.Message = "Product not found";
                 return Task.FromResult(response);
             }
-
             Products.Remove(existingProduct);
+            
+            response.Success = true;
             response.Message = "Product Deleted Successfully";
-
             response.Data = existingProduct;
 
             return Task.FromResult(response);
         }
-
     }
 }
