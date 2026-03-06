@@ -1,14 +1,15 @@
 ﻿using ProductsAPI.Classess;
+using ProductsAPI.Dto;
 using ProductsAPI.Models;
 
 namespace ProductsAPI.Services
 {
     public interface IProductService
     {
-        Task<ServiceResponse<List<Product>>> GetAll();
-        Task<ServiceResponse<Product>>? GetProductById(int id);
-        Task<ServiceResponse<Product>> AddProduct(Product product);
-        Task<ServiceResponse<Product>>? UpdateProduct(int id, Product upDatingProduct);
-        Task<ServiceResponse<Product>>? DeleteProduct(int id);
+        Task<ServiceResponse<List<ProductDto>>> GetAll();
+        Task<ServiceResponse<ProductDto>>? GetProductById(int id);
+        Task<ServiceResponse<ProductDto>> AddProduct(ProductDto product);
+        Task<ServiceResponse<ProductDto>>? UpdateProduct(int id, ProductDto upDatingProduct);
+        Task<ServiceResponse<ProductDto>>? DeleteProduct(int id);
     }
 }

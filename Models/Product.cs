@@ -12,6 +12,7 @@ namespace ProductsAPI.Classess
         [Required]
         public decimal Price { get; set; }
 
+        public decimal BuyPrice { get; set; }
         // Add Buy price and Sell Price to allow for costing calculations
     }
 }

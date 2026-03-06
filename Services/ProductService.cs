@@ -1,4 +1,5 @@
 ﻿using ProductsAPI.Classess;
+using ProductsAPI.Dto;
 using ProductsAPI.Models;
 
 namespace ProductsAPI.Services
@@ -14,25 +15,25 @@ namespace ProductsAPI.Services
             new Product { Id = 5, Name = "Blanket", Price = 10.99m }
         };
 
-        public Task<ServiceResponse<List<Product>>> GetAll()
+        public Task<ServiceResponse<List<ProductDto>>> GetAll()
         {
-            var response = new ServiceResponse<List<Product>>();
+            var response = new ServiceResponse<List<ProductDto>>();
 
             if (Products.Count <= 0) { 
                 response.Success = false;
-                response.Message = "Product List Coulf not be found";
+                response.Message = "Product List Could not be found";
                 return Task.FromResult(response);
             }
 
-            response.Data = Products;
+            response.Data = new List<ProductDto>();
             response.Success = true;
             response.Message = "Product List Found";
            
             return Task.FromResult(response);
         }
-        public Task<ServiceResponse<Product>> GetProductById(int id)
+        public Task<ServiceResponse<ProductDto>> GetProductById(int id)
         {
-            var response = new ServiceResponse<Product>();
+            var response = new ServiceResponse<ProductDto>();
 
             if (id <= 0) { 
                 response.Success = false;
@@ -49,44 +50,50 @@ namespace ProductsAPI.Services
                 return Task.FromResult(response);
             }
             else { 
-                response.Data = product;
+                response.Data = new ProductDto();
             }
 
             return Task.FromResult(response);
         }
 
-        public Task<ServiceResponse<Product>> AddProduct(Product product)
+        public Task<ServiceResponse<ProductDto>> AddProduct(ProductDto newProduct)
         {
-            var response = new ServiceResponse<Product>();
+            var response = new ServiceResponse<ProductDto>();
 
-            if (product == null)
+            if (newProduct == null)
             {
                 response.Success = false;
                 response.Message = "Product not found";
                 return Task.FromResult(response);
             }
 
-            if (String.IsNullOrWhiteSpace(product.Name)) {
+            if (String.IsNullOrWhiteSpace(newProduct.Name)) {
                 response.Success = false;
                 response.Message = "Product Name is required";
                 return Task.FromResult(response);
             }
 
-            var newId = Products.Any() ? Products.Max(p => p.Id) + 1 : 1;
+            var productId = Products.Any() ? Products.Max(p => p.Id) + 1 : 1;
+
+            var product = new Product
+            {
+                Name = newProduct.Name,
+                Price = newProduct.Price,
+            };
             
-            product.Id = newId;
+            product.Id = productId;
             Products.Add(product);
 
-            response.Data = product;
+            response.Data = newProduct;
             response.Success = true;
             response.Message = $"Product Has been Added";
             
             return Task.FromResult(response);
         }
         
-        public Task<ServiceResponse<Product>>? UpdateProduct(int id, Product upDatingProduct)
+        public Task<ServiceResponse<ProductDto>>? UpdateProduct(int id, ProductDto upDatingProduct)
         {
-            var response = new ServiceResponse<Product>();
+            var response = new ServiceResponse<ProductDto>();
 
             if (id <= 0) { 
                 response.Success = false;
@@ -110,8 +117,15 @@ namespace ProductsAPI.Services
 
             existingProduct.Name = upDatingProduct.Name;
             existingProduct.Price = upDatingProduct.Price;
+            
+            var dto = new ProductDto{ 
+                Name = upDatingProduct.Name,
+                Price = upDatingProduct.Price,
+            };
 
-            response.Data = existingProduct;
+            
+            //Manually mapped
+            response.Data = dto;
             response.Success = true;
             response.Message = "Product Updated Successfully";
             
