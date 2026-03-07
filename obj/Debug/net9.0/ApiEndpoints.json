@@ -29,13 +29,13 @@
     "Parameters": [
       {
         "Name": "product",
-        "Type": "ProductsAPI.Classess.Product",
+        "Type": "ProductsAPI.Dto.ProductDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "ProductsAPI.Classess.Product",
+        "Type": "ProductsAPI.Dto.ProductDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -61,7 +61,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "ProductsAPI.Classess.Product",
+        "Type": "ProductsAPI.Dto.ProductDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -86,13 +86,13 @@
       },
       {
         "Name": "upDatingProduct",
-        "Type": "ProductsAPI.Classess.Product",
+        "Type": "ProductsAPI.Dto.ProductDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "ProductsAPI.Classess.Product",
+        "Type": "ProductsAPI.Dto.ProductDto",
         "MediaTypes": [
           "text/plain",
           "application/json",

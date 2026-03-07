@@ -25,12 +25,20 @@ namespace ProductsAPI.Services
                 return Task.FromResult(response);
             }
 
-            response.Data = new List<ProductDto>();
+
+            response.Data = Products
+                .Select(p => new ProductDto
+                {
+                    Name = p.Name,
+                    Price = p.Price
+                }).ToList();
+
             response.Success = true;
             response.Message = "Product List Found";
            
             return Task.FromResult(response);
         }
+
         public Task<ServiceResponse<ProductDto>> GetProductById(int id)
         {
             var response = new ServiceResponse<ProductDto>();
@@ -43,15 +51,14 @@ namespace ProductsAPI.Services
 
             var product = Products.FirstOrDefault(x => x.Id == id);
 
-            if (product == null)
-            {
-                response.Success = false;
-                response.Message = "Product not found";
-                return Task.FromResult(response);
-            }
-            else { 
-                response.Data = new ProductDto();
-            }
+            var dto = new ProductDto{ 
+                Name = product.Name,
+                Price = product.Price
+            };
+
+            response.Data = dto;
+            response.Success = true;
+            response.Message = "Product found";
 
             return Task.FromResult(response);
         }
@@ -78,13 +85,18 @@ namespace ProductsAPI.Services
             var product = new Product
             {
                 Name = newProduct.Name,
-                Price = newProduct.Price,
+                Price = newProduct.Price
             };
             
             product.Id = productId;
             Products.Add(product);
 
-            response.Data = newProduct;
+            var dto = new ProductDto {
+                Name = newProduct.Name,
+                Price = newProduct.Price
+            };
+
+            response.Data = dto;
             response.Success = true;
             response.Message = $"Product Has been Added";
             
@@ -132,9 +144,9 @@ namespace ProductsAPI.Services
             return Task.FromResult(response);
         }
 
-        public Task<ServiceResponse<Product>> DeleteProduct(int id)
+        public Task<ServiceResponse<ProductDto>> DeleteProduct(int id)
         {
-            var response = new ServiceResponse<Product>();
+            var response = new ServiceResponse<ProductDto>();
             if (id <= 0)
             {
                 response.Success = false;
@@ -144,16 +156,23 @@ namespace ProductsAPI.Services
 
             var existingProduct = Products.FirstOrDefault(prod => prod.Id == id);
 
-            if (existingProduct == null) { 
+            if (existingProduct == null)
+            {
                 response.Success = false;
                 response.Message = "Product not found";
                 return Task.FromResult(response);
             }
+
             Products.Remove(existingProduct);
-            
+
+            var dto = new ProductDto { 
+                Name = existingProduct.Name,
+                Price = existingProduct.Price,
+            };
+
+            response.Data = dto;
             response.Success = true;
             response.Message = "Product Deleted Successfully";
-            response.Data = existingProduct;
 
             return Task.FromResult(response);
         }

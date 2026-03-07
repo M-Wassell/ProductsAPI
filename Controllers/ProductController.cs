@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using ProductsAPI.Classess;
+using ProductsAPI.Dto;
 using ProductsAPI.Models;
 using ProductsAPI.Services;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace ProductsAPI.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProductById(int id)
+        public async Task<ActionResult<ProductDto>> GetProductById(int id)
         {
             if (id <= 0) {
                 return NotFound();
@@ -45,7 +46,7 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Product>> AddProduct(Product product) {
+        public async Task<ActionResult<ProductDto>> AddProduct(ProductDto product) {
 
             if (product == null){ 
                 return NotFound();
@@ -57,7 +58,7 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Product>> UpdateProduct(int id, Product upDatingProduct)
+        public async Task<ActionResult<ProductDto>> UpdateProduct(int id, ProductDto upDatingProduct)
         {
             if (id <= 0) {
                 return NotFound();
@@ -72,17 +73,13 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<Product> DeleteProduct(int id) {
+        public async Task<ActionResult<Product>> DeleteProduct(int id) {
 
-            if (id <= 0) {
-                return NotFound();
-            }
+            var result = await _productService.DeleteProduct(id);
 
-            var deleted = _productService.DeleteProduct(id);
-
-            if (deleted == null)
+            if (!result.Success)
             {
-                return NotFound();
+                return NotFound(result.Message);
             }
 
             return NoContent();
