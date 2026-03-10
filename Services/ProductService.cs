@@ -1,11 +1,18 @@
-﻿using ProductsAPI.Classess;
+﻿using AutoMapper;
+using ProductsAPI.Classess;
 using ProductsAPI.Dto;
 using ProductsAPI.Models;
 
 namespace ProductsAPI.Services
 {
     public class ProductService : IProductService
+        
     {
+        private readonly IMapper _mapper;
+        public ProductService(IMapper mapper) { 
+            _mapper = mapper;
+        }
+
         private static readonly  List<Product> Products = new List<Product>()
         {
             new Product { Id = 1, Name = "Cup", Price = 3.99m },
@@ -51,10 +58,13 @@ namespace ProductsAPI.Services
 
             var product = Products.FirstOrDefault(x => x.Id == id);
 
-            var dto = new ProductDto{ 
-                Name = product.Name,
-                Price = product.Price
-            };
+            // Manual Mapping
+            //var dto = new ProductDto{ 
+            //    Name = product.Name,
+            //    Price = product.Price
+            //};
+
+            var dto = _mapper.Map<ProductDto>(product); 
 
             response.Data = dto;
             response.Success = true;
@@ -134,7 +144,6 @@ namespace ProductsAPI.Services
                 Name = upDatingProduct.Name,
                 Price = upDatingProduct.Price,
             };
-
             
             //Manually mapped
             response.Data = dto;

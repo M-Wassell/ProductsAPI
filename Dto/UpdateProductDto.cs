@@ -1,20 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProductsAPI.Classess
+namespace ProductsAPI.Dto
 {
-    public class Product
+    public class UpdateProductDto
     {
-        public int Id { get; set; }
         [Required]
         public string? Name { get; set; }
-        public string? Description { get; set; }
         [Required]
         public decimal Price { get; set; }
-        public decimal BuyPrice { get; set; }
+        public string? Description { get; set; }
         public int StockQuantity { get; set; }
         public string? Category { get; set; }
         public bool IsActive { get; set; }
-        public DateTime? CreatedDate { get; set; }
-        public DateTime? UpdatedDate { get; set; }
+
     }
 }
