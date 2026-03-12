@@ -7,9 +7,9 @@ namespace ProductsAPI.Services
     public interface IProductService
     {
         Task<ServiceResponse<List<ProductDto>>> GetAll();
-        Task<ServiceResponse<ProductDto>>? GetProductById(int id);
-        Task<ServiceResponse<ProductDto>> AddProduct(ProductDto product);
-        Task<ServiceResponse<ProductDto>>? UpdateProduct(int id, ProductDto upDatingProduct);
-        Task<ServiceResponse<ProductDto>>? DeleteProduct(int id);
+        Task<ServiceResponse<ProductDto>> GetById(int id);
+        Task<ServiceResponse<ProductDto>> Create(CreateProductDto product);
+        Task<ServiceResponse<ProductDto>> Update(int id, UpdateProductDto upDatingProduct);
+        Task<ServiceResponse<bool>> Delete(int id);
     }
 }

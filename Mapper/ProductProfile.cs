@@ -4,9 +4,9 @@ using ProductsAPI.Dto;
 
 namespace ProductsAPI.Mapper
 {
-    public class ProductPrfile : Profile
+    public class ProductProfile : Profile
     {
-        public ProductPrfile()
+        public ProductProfile()
         {
             CreateMap<Product, ProductDto>();
             CreateMap<CreateProductDto, Product>();

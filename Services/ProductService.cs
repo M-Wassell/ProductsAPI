@@ -46,7 +46,7 @@ namespace ProductsAPI.Services
             return Task.FromResult(response);
         }
 
-        public Task<ServiceResponse<ProductDto>> GetProductById(int id)
+        public Task<ServiceResponse<ProductDto>> GetById(int id)
         {
             var response = new ServiceResponse<ProductDto>();
 
@@ -73,7 +73,7 @@ namespace ProductsAPI.Services
             return Task.FromResult(response);
         }
 
-        public Task<ServiceResponse<ProductDto>> AddProduct(ProductDto newProduct)
+        public Task<ServiceResponse<ProductDto>> Create(CreateProductDto newProduct)
         {
             var response = new ServiceResponse<ProductDto>();
 
@@ -91,29 +91,23 @@ namespace ProductsAPI.Services
             }
 
             var productId = Products.Any() ? Products.Max(p => p.Id) + 1 : 1;
+            var product = _mapper.Map<Product>(newProduct);
 
-            var product = new Product
-            {
-                Name = newProduct.Name,
-                Price = newProduct.Price
-            };
-            
             product.Id = productId;
+            product.CreatedDate = DateTime.UtcNow;
+            product.UpdatedDate = DateTime.UtcNow;
+            product.IsActive = true;
+            
             Products.Add(product);
 
-            var dto = new ProductDto {
-                Name = newProduct.Name,
-                Price = newProduct.Price
-            };
-
-            response.Data = dto;
+            response.Data = _mapper.Map<ProductDto>(product);
             response.Success = true;
-            response.Message = $"Product Has been Added";
+            response.Message = $"Product has been Added";
             
             return Task.FromResult(response);
         }
         
-        public Task<ServiceResponse<ProductDto>>? UpdateProduct(int id, ProductDto upDatingProduct)
+        public Task<ServiceResponse<ProductDto>>? Update(int id, ProductDto upDatingProduct)
         {
             var response = new ServiceResponse<ProductDto>();
 
@@ -153,7 +147,7 @@ namespace ProductsAPI.Services
             return Task.FromResult(response);
         }
 
-        public Task<ServiceResponse<ProductDto>> DeleteProduct(int id)
+        public Task<ServiceResponse<ProductDto>> Delete(int id)
         {
             var response = new ServiceResponse<ProductDto>();
             if (id <= 0)

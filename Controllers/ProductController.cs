@@ -22,7 +22,7 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ServiceResponse<List<Product>>>> GetAll()
+        public async Task<ActionResult<ServiceResponse<List<ProductDto>>>> GetAll()
         {
             var result = await _productService.GetAll();
             return Ok(result);
@@ -36,7 +36,7 @@ namespace ProductsAPI.Controllers
                 return NotFound();
             }
 
-            var product = _productService.GetProductById(id);
+            var product = _productService.GetById(id);
 
             if (product == null){ 
                 return NotFound();
@@ -46,15 +46,21 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProductDto>> AddProduct(ProductDto product) {
+        public async Task<ActionResult<ServiceResponse<ProductDto>>> Create(CreateProductDto dto) {
 
-            if (product == null){ 
+            if (dto == null){ 
                 return NotFound();
             }
 
-            var createProduct = _productService.AddProduct(product);
+            var result = await _productService.Create(dto);
 
-            return CreatedAtAction(nameof(GetProductById), new { id = createProduct.Id}, await createProduct);
+            if (!result.Success) {
+                return BadRequest(result);
+            }
+            return Ok(result);
+
+
+            //return CreatedAtAction(nameof(GetProductById), new { id = createProduct.Id}, await createProduct);
         }
 
         [HttpPut("{id}")]
@@ -63,7 +69,7 @@ namespace ProductsAPI.Controllers
             if (id <= 0) {
                 return NotFound();
             }
-            var updated = _productService.UpdateProduct(id, upDatingProduct);
+            var updated = _productService.Update(id, upDatingProduct);
 
             if (updated == null) { 
                 return NotFound();
@@ -75,7 +81,7 @@ namespace ProductsAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Product>> DeleteProduct(int id) {
 
-            var result = await _productService.DeleteProduct(id);
+            var result = await _productService.Delete(id);
 
             if (!result.Success)
             {
