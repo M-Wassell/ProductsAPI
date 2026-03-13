@@ -15,31 +15,30 @@ namespace ProductsAPI.Services
 
         private static readonly  List<Product> Products = new List<Product>()
         {
-            new Product { Id = 1, Name = "Cup", Price = 3.99m },
-            new Product { Id = 2, Name = "Toaster", Price = 4.99m },
-            new Product { Id = 3, Name = "Bottle", Price = 3.99m },
-            new Product { Id = 4, Name = "TV", Price = 55.99m },
-            new Product { Id = 5, Name = "Blanket", Price = 10.99m }
+            new Product { Id = 1, Name = "Cup", Price = 3.99m, StockQuantity = 500, Category = "Crocery", Description = "Exotic tea cups made from Byson bones", IsActive = true },
+            new Product { Id = 2, Name = "Toaster", Price = 4.99m, StockQuantity = 700, Category = "Crocery", Description = "Super shiny and quick toaster", IsActive = true },
+            new Product { Id = 3, Name = "Bottle", Price = 3.99m, StockQuantity = 900, Category = "Sports", Description = "Very vague bottle", IsActive = true },
+            new Product { Id = 4, Name = "TV", Price = 55.99m, StockQuantity = 300, Category = "Electronics", Description = "Big 55Inch TV", IsActive = true },
+            new Product { Id = 5, Name = "Blanket", Price = 10.99m, StockQuantity = 100, Category = "Bedding", Description = "Soft blacnket made from unicorn fur", IsActive = true }
         };
 
         public Task<ServiceResponse<List<ProductDto>>> GetAll()
         {
             var response = new ServiceResponse<List<ProductDto>>();
 
-            if (Products.Count <= 0) { 
+            var activeProducts = Products
+                .Where(p => p.IsActive)
+                .ToList();
+
+            if (!activeProducts.Any()) { 
                 response.Success = false;
                 response.Message = "Product List Could not be found";
                 return Task.FromResult(response);
             }
+            Console.WriteLine(Products.Count);
+            Console.WriteLine(Products.Count(p => p.IsActive));
 
-
-            response.Data = Products
-                .Select(p => new ProductDto
-                {
-                    Name = p.Name,
-                    Price = p.Price
-                }).ToList();
-
+            response.Data = _mapper.Map<List<ProductDto>>(activeProducts);
             response.Success = true;
             response.Message = "Product List Found";
            
@@ -57,12 +56,6 @@ namespace ProductsAPI.Services
             }
 
             var product = Products.FirstOrDefault(x => x.Id == id);
-
-            // Manual Mapping
-            //var dto = new ProductDto{ 
-            //    Name = product.Name,
-            //    Price = product.Price
-            //};
 
             var dto = _mapper.Map<ProductDto>(product); 
 
@@ -95,7 +88,6 @@ namespace ProductsAPI.Services
 
             product.Id = productId;
             product.CreatedDate = DateTime.UtcNow;
-            product.UpdatedDate = DateTime.UtcNow;
             product.IsActive = true;
             
             Products.Add(product);
@@ -107,7 +99,7 @@ namespace ProductsAPI.Services
             return Task.FromResult(response);
         }
         
-        public Task<ServiceResponse<ProductDto>>? Update(int id, ProductDto upDatingProduct)
+        public Task<ServiceResponse<ProductDto>> Update(int id, UpdateProductDto upDatingProduct)
         {
             var response = new ServiceResponse<ProductDto>();
 
@@ -117,9 +109,9 @@ namespace ProductsAPI.Services
                 return Task.FromResult(response);
             }
 
-            var existingProduct = Products.FirstOrDefault(prod => prod.Id == id);
+            var product = Products.FirstOrDefault(prod => prod.Id == id);
 
-            if(existingProduct == null){ 
+            if(product == null){ 
                 response.Success = false;
                 response.Message = "Product not found";
                 return Task.FromResult(response);
@@ -131,29 +123,25 @@ namespace ProductsAPI.Services
                 return Task.FromResult(response);
             }
 
-            existingProduct.Name = upDatingProduct.Name;
-            existingProduct.Price = upDatingProduct.Price;
-            
-            var dto = new ProductDto{ 
-                Name = upDatingProduct.Name,
-                Price = upDatingProduct.Price,
-            };
-            
-            //Manually mapped
-            response.Data = dto;
+            _mapper.Map(upDatingProduct, product);
+
+            product.UpdatedDate = DateTime.UtcNow;
+
+            response.Data = _mapper.Map<ProductDto>(product);
             response.Success = true;
             response.Message = "Product Updated Successfully";
             
             return Task.FromResult(response);
         }
 
-        public Task<ServiceResponse<ProductDto>> Delete(int id)
+        public Task<ServiceResponse<bool>> Delete(int id)
         {
-            var response = new ServiceResponse<ProductDto>();
+            var response = new ServiceResponse<bool>();
             if (id <= 0)
             {
                 response.Success = false;
                 response.Message = "Invalid Product Id";
+                response.Data = false;
                 return Task.FromResult(response);
             }
 
@@ -166,16 +154,13 @@ namespace ProductsAPI.Services
                 return Task.FromResult(response);
             }
 
-            Products.Remove(existingProduct);
+            existingProduct.IsActive = false;
+            existingProduct.UpdatedDate = DateTime.UtcNow;
+            
 
-            var dto = new ProductDto { 
-                Name = existingProduct.Name,
-                Price = existingProduct.Price,
-            };
-
-            response.Data = dto;
+            response.Data = true;
             response.Success = true;
-            response.Message = "Product Deleted Successfully";
+            response.Message = "Product Soft Delete Successfull";
 
             return Task.FromResult(response);
         }

@@ -6,6 +6,8 @@ C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\ProductsAPI.deps.json
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\ProductsAPI.runtimeconfig.json
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\ProductsAPI.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\ProductsAPI.pdb
+C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\AutoMapper.dll
+C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Microsoft.OpenApi.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
@@ -18,6 +20,7 @@ C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\ProductsAPI.AssemblyInf
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\ProductsAPI.csproj.CoreCompileInputs.cache
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\ProductsAPI.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\ProductsAPI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\ProductsAPI.sourcelink.json
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\rjimswa.dswa.cache.json
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\rjsmrazor.dswa.cache.json
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
@@ -26,11 +29,10 @@ C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\staticwebassets.build.j
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\staticwebassets.build.json.cache
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\Products.2F20E4EC.Up2Date
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\ProductsAPI.dll
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\refint\ProductsAPI.dll
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\ProductsAPI.pdb
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\ProductsAPI.genruntimeconfig.cache
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\ref\ProductsAPI.dll
-C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
-C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\ProductsAPI.sourcelink.json

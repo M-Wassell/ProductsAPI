@@ -30,7 +30,7 @@ namespace ProductsAPI.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductDto>> GetProductById(int id)
+        public async Task<ActionResult<ProductDto>> GetById(int id)
         {
             if (id <= 0) {
                 return NotFound();
@@ -46,7 +46,7 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<ProductDto>>> Create(CreateProductDto dto) {
+        public async Task<ActionResult<ServiceResponse<ProductDto>>>Create(CreateProductDto dto) {
 
             if (dto == null){ 
                 return NotFound();
@@ -64,12 +64,12 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<ProductDto>> UpdateProduct(int id, ProductDto upDatingProduct)
+        public async Task<ActionResult<ProductDto>> Update(int id, UpdateProductDto dto)
         {
             if (id <= 0) {
                 return NotFound();
             }
-            var updated = _productService.Update(id, upDatingProduct);
+            var updated = _productService.Update(id, dto);
 
             if (updated == null) { 
                 return NotFound();
@@ -79,7 +79,7 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Product>> DeleteProduct(int id) {
+        public async Task<ActionResult<bool>> Delete(int id) {
 
             var result = await _productService.Delete(id);
 

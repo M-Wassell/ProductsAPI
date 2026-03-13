@@ -9,7 +9,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "ProductsAPI.Models.ServiceResponse\u00601[[System.Collections.Generic.List\u00601[[ProductsAPI.Classess.Product, ProductsAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Type": "ProductsAPI.Models.ServiceResponse\u00601[[System.Collections.Generic.List\u00601[[ProductsAPI.Dto.ProductDto, ProductsAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -21,21 +21,21 @@
   },
   {
     "ContainingType": "ProductsAPI.Controllers.ProductsController",
-    "Method": "AddProduct",
+    "Method": "Create",
     "RelativePath": "api/Products",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "product",
-        "Type": "ProductsAPI.Dto.ProductDto",
+        "Name": "dto",
+        "Type": "ProductsAPI.Dto.CreateProductDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "ProductsAPI.Dto.ProductDto",
+        "Type": "ProductsAPI.Models.ServiceResponse\u00601[[ProductsAPI.Dto.ProductDto, ProductsAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -47,7 +47,7 @@
   },
   {
     "ContainingType": "ProductsAPI.Controllers.ProductsController",
-    "Method": "GetProductById",
+    "Method": "GetById",
     "RelativePath": "api/Products/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -73,7 +73,7 @@
   },
   {
     "ContainingType": "ProductsAPI.Controllers.ProductsController",
-    "Method": "UpdateProduct",
+    "Method": "Update",
     "RelativePath": "api/Products/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -85,8 +85,8 @@
         "IsRequired": true
       },
       {
-        "Name": "upDatingProduct",
-        "Type": "ProductsAPI.Dto.ProductDto",
+        "Name": "dto",
+        "Type": "ProductsAPI.Dto.UpdateProductDto",
         "IsRequired": true
       }
     ],
@@ -104,7 +104,7 @@
   },
   {
     "ContainingType": "ProductsAPI.Controllers.ProductsController",
-    "Method": "DeleteProduct",
+    "Method": "Delete",
     "RelativePath": "api/Products/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -118,7 +118,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "ProductsAPI.Classess.Product",
+        "Type": "System.Boolean",
         "MediaTypes": [
           "text/plain",
           "application/json",
