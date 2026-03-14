@@ -1,5 +1,5 @@
 
-using Microsoft.Extensions.DependencyInjection;
+using AutoMapper;
 using ProductsAPI.Services;
 
 namespace ProductsAPI
@@ -13,7 +13,8 @@ namespace ProductsAPI
             builder.Services.AddControllers();
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<IProductService, ProductService>();
-            builder.Services.AddAutoMapper(typeof(Program));
+            builder.Services.AddAutoMapper(typeof(Program).Assembly);
+            //builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
