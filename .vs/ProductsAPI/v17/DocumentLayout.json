@@ -3,8 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|c:\\users\\micha\\source\\repos\\productsapi\\migrations\\applicationdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|solutionrelative:migrations\\applicationdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|c:\\users\\micha\\source\\repos\\productsapi\\migrations\\20260315143625_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|solutionrelative:migrations\\20260315143625_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|c:\\users\\micha\\source\\repos\\productsapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|c:\\users\\micha\\source\\repos\\productsapi\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|c:\\users\\micha\\source\\repos\\productsapi\\mapper\\productprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -34,24 +46,62 @@
       "DocumentGroups": [
         {
           "DockedWidth": 223,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ProductsAPI.csproj",
-              "DocumentMoniker": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\ProductsAPI.csproj",
-              "RelativeDocumentMoniker": "ProductsAPI.csproj",
-              "ToolTip": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\ProductsAPI.csproj",
-              "RelativeToolTip": "ProductsAPI.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-03-14T08:09:01.088Z",
+              "DocumentIndex": 0,
+              "Title": "ApplicationDbContextModelSnapshot.cs",
+              "DocumentMoniker": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "RelativeDocumentMoniker": "Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "ToolTip": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "RelativeToolTip": "Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAUwCoAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T14:37:26.408Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "20260315143625_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Migrations\\20260315143625_InitialCreate.cs",
+              "RelativeDocumentMoniker": "Migrations\\20260315143625_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Migrations\\20260315143625_InitialCreate.cs",
+              "RelativeToolTip": "Migrations\\20260315143625_InitialCreate.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAUwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T14:36:26.411Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T14:22:19.303Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ProductsAPI.csproj",
+              "DocumentMoniker": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\ProductsAPI.csproj",
+              "RelativeDocumentMoniker": "ProductsAPI.csproj",
+              "ToolTip": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\ProductsAPI.csproj",
+              "RelativeToolTip": "ProductsAPI.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-03-14T08:09:01.088Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "ProductProfile.cs",
               "DocumentMoniker": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Mapper\\ProductProfile.cs",
               "RelativeDocumentMoniker": "Mapper\\ProductProfile.cs",
@@ -59,25 +109,24 @@
               "RelativeToolTip": "Mapper\\ProductProfile.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-13T23:39:42.199Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-13T23:39:42.199Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-13T23:23:09.257Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "IProductService.cs",
               "DocumentMoniker": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Services\\IProductService.cs",
               "RelativeDocumentMoniker": "Services\\IProductService.cs",
@@ -85,12 +134,11 @@
               "RelativeToolTip": "Services\\IProductService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-13T06:31:22.666Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-13T06:31:22.666Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "ProductService.cs",
               "DocumentMoniker": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Services\\ProductService.cs",
               "RelativeDocumentMoniker": "Services\\ProductService.cs",
@@ -98,12 +146,11 @@
               "RelativeToolTip": "Services\\ProductService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAACzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-12T16:06:03.503Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-12T16:06:03.503Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "ProductController.cs",
               "DocumentMoniker": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Controllers\\ProductController.cs",
               "RelativeDocumentMoniker": "Controllers\\ProductController.cs",
@@ -111,8 +158,7 @@
               "RelativeToolTip": "Controllers\\ProductController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAABewFEAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-12T16:04:16.417Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-12T16:04:16.417Z"
             }
           ]
         }

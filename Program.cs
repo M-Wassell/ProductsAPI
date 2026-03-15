@@ -1,5 +1,6 @@
-
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using ProductsAPI.Data;
 using ProductsAPI.Services;
 
 namespace ProductsAPI
@@ -14,7 +15,13 @@ namespace ProductsAPI
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddAutoMapper(typeof(Program).Assembly);
-            //builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                        options.UseSqlite("Data Source=products.db"));
+
+            builder.Services.AddControllersWithViews();
+
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
