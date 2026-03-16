@@ -20,8 +20,6 @@ namespace ProductsAPI.Services
             _logger = logger;
         }
 
-        
-
         //private static readonly  List<Product> Products = new List<Product>()
         //{
         //    new Product { Id = 1, Name = "Cup", Price = 3.99m, StockQuantity = 500, Category = "Crocery", Description = "Exotic tea cups made from Byson bones", IsActive = true },
@@ -35,142 +33,188 @@ namespace ProductsAPI.Services
 
         public async Task<ServiceResponse<List<ProductDto>>> GetAll()
         {
+            _logger.LogInformation("Attempting to fetch all products");
+
             var response = new ServiceResponse<List<ProductDto>>();
+            var products = await _context.Products
+                .Where(p => p.IsActive)
+                .ToListAsync();
+            try
+            {
 
-            var products = await _context.Products.ToListAsync();
+                if (products.Count <= 0) {
+                    _logger.LogError("Failed to fetch all products");
+                    response.Success = false;
+                    response.Message = "Product List Could not be found";
+                    return response;
+                }
 
-            if (products.Count ==0) { 
-                response.Success = false;
-                response.Message = "Product List Could not be found";
-                return response;
+                _logger.LogInformation("Success");
+                response.Data = _mapper.Map<List<ProductDto>>(products);
+                response.Success = true;
+                response.Message = "Product List Found";
             }
-            
-
-            response.Data = _mapper.Map<List<ProductDto>>(products);
-            response.Success = true;
-            response.Message = "Product List Found";
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Internal Server Error");
+                response.Success = false;
+                response.Message = "Server Error";
+            }
            
             return response;
         }
 
-        public Task<ServiceResponse<ProductDto>> GetById(int id)
+        public async Task<ServiceResponse<ProductDto>> GetById(int id)
         {
+            _logger.LogInformation("Attempting to fetch product by {id}", id);
             var response = new ServiceResponse<ProductDto>();
 
-            if (id <= 0) { 
+            try
+            {
+                if (id <= 0) {
+                    _logger.LogError("Failed to fetch product {id}", id);
+                    response.Success = false;
+                    response.Message = "Product Id not found";
+                    return response;
+                }
+
+                var product = await _context.Products
+                    .Where(p => p.IsActive)
+                    .FirstOrDefaultAsync(x => x.Id == id);
+
+                var dto = _mapper.Map<ProductDto>(product); 
+                await _context.SaveChangesAsync();
+
+                response.Data = dto;
+                response.Success = true;
+                response.Message = "Product found";
+
+                _logger.LogInformation("Successfully fetched product by {id}", id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Internal Server Error");
                 response.Success = false;
-                response.Message = "Product Id not found";
-                return Task.FromResult(response);
+                response.Message = "Server Error";
             }
 
-            var product = Products.FirstOrDefault(x => x.Id == id);
-
-            var dto = _mapper.Map<ProductDto>(product); 
-
-            response.Data = dto;
-            response.Success = true;
-            response.Message = "Product found";
-
-            return Task.FromResult(response);
+            return response;
         }
 
-        public Task<ServiceResponse<ProductDto>> Create(CreateProductDto newProduct)
+        public async Task<ServiceResponse<ProductDto>> Create(CreateProductDto createProductDto)
         {
+            _logger.LogInformation("Attempting to create new Product");
             var response = new ServiceResponse<ProductDto>();
 
-            if (newProduct == null)
+            try
             {
+                if (String.IsNullOrWhiteSpace(createProductDto.Name)) {
+                    _logger.LogError("Failed to fetch product {newProduct}", createProductDto);
+                    response.Success = false;
+                    response.Message = "Product Name is required";
+                    return response;
+                }
+
+                var product = _mapper.Map<Product>(createProductDto);
+                product.CreatedDate = DateTime.UtcNow;
+                product.IsActive = true;
+
+                _context.Products.Add(product);
+                await _context.SaveChangesAsync();
+
+                response.Data = _mapper.Map<ProductDto>(product);
+                response.Success = true;
+                response.Message = $"Product has been Added";
+                _logger.LogInformation("Created product successfully");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Internal Server Error");
                 response.Success = false;
-                response.Message = "Product not found";
-                return Task.FromResult(response);
+                response.Message = "Server Error";
             }
 
-            if (String.IsNullOrWhiteSpace(newProduct.Name)) {
-                response.Success = false;
-                response.Message = "Product Name is required";
-                return Task.FromResult(response);
-            }
-
-            var productId = Products.Any() ? Products.Max(p => p.Id) + 1 : 1;
-            var product = _mapper.Map<Product>(newProduct);
-
-            product.Id = productId;
-            product.CreatedDate = DateTime.UtcNow;
-            product.IsActive = true;
-            
-            Products.Add(product);
-
-            response.Data = _mapper.Map<ProductDto>(product);
-            response.Success = true;
-            response.Message = $"Product has been Added";
-            
-            return Task.FromResult(response);
+            return response;
         }
         
-        public Task<ServiceResponse<ProductDto>> Update(int id, UpdateProductDto upDatingProduct)
+        public async Task<ServiceResponse<ProductDto>> Update(int id, UpdateProductDto updateProductDto)
         {
+            _logger.LogInformation("Attempting to update Product {id}", id);
             var response = new ServiceResponse<ProductDto>();
+            var product = await _context.Products.FirstOrDefaultAsync(prod => prod.Id == id);
 
-            if (id <= 0) { 
+            try
+            {
+                if (id <= 0)
+                {
+                    _logger.LogError("Failed to fetch product {id}", id);
+                    response.Success = false;
+                    response.Message = "Product Id not found";
+                    return response;
+                }
+
+                _mapper.Map(updateProductDto, product);
+
+                product.UpdatedDate = DateTime.UtcNow;
+
+                response.Data = _mapper.Map<ProductDto>(product);
+                response.Success = true;
+                response.Message = "Product Updated Successfully";
+                _logger.LogInformation("Updated product successfully");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Internal Server Error");
                 response.Success = false;
-                response.Message = "Existing Product does not exist";
-                return Task.FromResult(response);
+                response.Message = "Server Error";
             }
 
-            var product = Products.FirstOrDefault(prod => prod.Id == id);
-
-            if(product == null){ 
-                response.Success = false;
-                response.Message = "Product not found";
-                return Task.FromResult(response);
-            }
-
-            if (String.IsNullOrWhiteSpace(upDatingProduct.Name)) {  
-                response.Success = false;
-                response.Message = "Product Name is required";
-                return Task.FromResult(response);
-            }
-
-            _mapper.Map(upDatingProduct, product);
-
-            product.UpdatedDate = DateTime.UtcNow;
-
-            response.Data = _mapper.Map<ProductDto>(product);
-            response.Success = true;
-            response.Message = "Product Updated Successfully";
-            
-            return Task.FromResult(response);
+            return response;
         }
 
-        public Task<ServiceResponse<bool>> Delete(int id)
+        public async Task<ServiceResponse<bool>> Delete(int id)
         {
+            _logger.LogInformation("Attempting to delete product {id}", id);
             var response = new ServiceResponse<bool>();
-            if (id <= 0)
+
+            try
             {
-                response.Success = false;
-                response.Message = "Invalid Product Id";
-                response.Data = false;
-                return Task.FromResult(response);
+                if (id <= 0)
+                {
+                    _logger.LogError("Failed to fetch product {id}", id);
+                    response.Success = false;
+                    response.Message = "Invalid Product Id";
+                    response.Data = false;
+                    return response;
+                }
+
+                var product = await _context.Products.FirstOrDefaultAsync(prod => prod.Id == id);
+
+                if (product == null)
+                {
+                    _logger.LogWarning("Failed to deleted product {id}", id);
+                    response.Success = false;
+                    response.Message = "Product not found";
+                    return response;
+                }
+
+                product.IsActive = false;
+                product.UpdatedDate = DateTime.UtcNow;
+
+
+                response.Data = true;
+                response.Success = true;
+                response.Message = "Product Soft Delete Successfull";
+                _logger.LogInformation("Soft Delete Successful");
             }
-
-            var existingProduct = Products.FirstOrDefault(prod => prod.Id == id);
-
-            if (existingProduct == null)
+            catch (Exception ex)
             {
+                _logger.LogError(ex, "Internal Server Error");
                 response.Success = false;
-                response.Message = "Product not found";
-                return Task.FromResult(response);
+                response.Message = "Server Error";
             }
-
-            existingProduct.IsActive = false;
-            existingProduct.UpdatedDate = DateTime.UtcNow;
             
-
-            response.Data = true;
-            response.Success = true;
-            response.Message = "Product Soft Delete Successfull";
-
-            return Task.FromResult(response);
+            return response;
         }
     }
 }

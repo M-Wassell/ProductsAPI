@@ -58,10 +58,9 @@ namespace ProductsAPI.Controllers
             if (!result.Success) {
                 return BadRequest(result);
             }
-            return Ok(result);
 
 
-            //return CreatedAtAction(nameof(GetProductById), new { id = createProduct.Id}, await createProduct);
+            return CreatedAtAction(nameof(GetById), new { id = result.Data}, result);
         }
 
         [HttpPut("{id}")]
@@ -70,13 +69,13 @@ namespace ProductsAPI.Controllers
             if (id <= 0) {
                 return NotFound();
             }
-            var updated = _productService.Update(id, dto);
+            var updated = await _productService.Update(id, dto);
 
             if (updated == null) { 
                 return NotFound();
             }
 
-            return Ok(await updated);
+            return Ok(updated);
         }
 
         [HttpDelete("{id}")]
