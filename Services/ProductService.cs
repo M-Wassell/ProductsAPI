@@ -1,48 +1,56 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using ProductsAPI.Classess;
+using ProductsAPI.Data;
 using ProductsAPI.Dto;
 using ProductsAPI.Models;
 
 namespace ProductsAPI.Services
 {
     public class ProductService : IProductService
-        
     {
+        private readonly ILogger<ProductService> _logger;
+        private static List<Product> _products = new();
+        private readonly ApplicationDbContext _context;
+
         private readonly IMapper _mapper;
-        public ProductService(IMapper mapper) { 
+        public ProductService(IMapper mapper, ApplicationDbContext context, ILogger<ProductService> logger) { 
             _mapper = mapper;
+            _context = context;
+            _logger = logger;
         }
 
-        private static readonly  List<Product> Products = new List<Product>()
-        {
-            new Product { Id = 1, Name = "Cup", Price = 3.99m, StockQuantity = 500, Category = "Crocery", Description = "Exotic tea cups made from Byson bones", IsActive = true },
-            new Product { Id = 2, Name = "Toaster", Price = 4.99m, StockQuantity = 700, Category = "Crocery", Description = "Super shiny and quick toaster", IsActive = true },
-            new Product { Id = 3, Name = "Bottle", Price = 3.99m, StockQuantity = 900, Category = "Sports", Description = "Very vague bottle", IsActive = true },
-            new Product { Id = 4, Name = "TV", Price = 55.99m, StockQuantity = 300, Category = "Electronics", Description = "Big 55Inch TV", IsActive = true },
-            new Product { Id = 5, Name = "Blanket", Price = 10.99m, StockQuantity = 100, Category = "Bedding", Description = "Soft blacnket made from unicorn fur", IsActive = true }
-        };
+        
 
-        public Task<ServiceResponse<List<ProductDto>>> GetAll()
+        //private static readonly  List<Product> Products = new List<Product>()
+        //{
+        //    new Product { Id = 1, Name = "Cup", Price = 3.99m, StockQuantity = 500, Category = "Crocery", Description = "Exotic tea cups made from Byson bones", IsActive = true },
+        //    new Product { Id = 2, Name = "Toaster", Price = 4.99m, StockQuantity = 700, Category = "Crocery", Description = "Super shiny and quick toaster", IsActive = true },
+        //    new Product { Id = 3, Name = "Bottle", Price = 3.99m, StockQuantity = 900, Category = "Sports", Description = "Very vague bottle", IsActive = true },
+        //    new Product { Id = 4, Name = "TV", Price = 55.99m, StockQuantity = 300, Category = "Electronics", Description = "Big 55Inch TV", IsActive = true },
+        //    new Product { Id = 5, Name = "Blanket", Price = 10.99m, StockQuantity = 100, Category = "Bedding", Description = "Soft blacnket made from unicorn fur", IsActive = true }
+        //};
+
+
+
+        public async Task<ServiceResponse<List<ProductDto>>> GetAll()
         {
             var response = new ServiceResponse<List<ProductDto>>();
 
-            var activeProducts = Products
-                .Where(p => p.IsActive)
-                .ToList();
+            var products = await _context.Products.ToListAsync();
 
-            if (!activeProducts.Any()) { 
+            if (products.Count ==0) { 
                 response.Success = false;
                 response.Message = "Product List Could not be found";
-                return Task.FromResult(response);
+                return response;
             }
-            Console.WriteLine(Products.Count);
-            Console.WriteLine(Products.Count(p => p.IsActive));
+            
 
-            response.Data = _mapper.Map<List<ProductDto>>(activeProducts);
+            response.Data = _mapper.Map<List<ProductDto>>(products);
             response.Success = true;
             response.Message = "Product List Found";
            
-            return Task.FromResult(response);
+            return response;
         }
 
         public Task<ServiceResponse<ProductDto>> GetById(int id)

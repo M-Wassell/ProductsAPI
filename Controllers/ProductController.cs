@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using ProductsAPI.Classess;
+using ProductsAPI.Data;
 using ProductsAPI.Dto;
 using ProductsAPI.Models;
 using ProductsAPI.Services;
