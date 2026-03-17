@@ -4,41 +4,30 @@ using ProductsAPI.Classess;
 using ProductsAPI.Data;
 using ProductsAPI.Dto;
 using ProductsAPI.Models;
+using ProductsAPI.Repository;
 
 namespace ProductsAPI.Services
 {
     public class ProductService : IProductService
     {
+        private readonly IProductRepository _repo;
         private readonly ILogger<ProductService> _logger;
         private static List<Product> _products = new();
-        private readonly ApplicationDbContext _context;
+
 
         private readonly IMapper _mapper;
-        public ProductService(IMapper mapper, ApplicationDbContext context, ILogger<ProductService> logger) { 
+        public ProductService(IMapper mapper, ILogger<ProductService> logger, IProductRepository repo) { 
             _mapper = mapper;
-            _context = context;
             _logger = logger;
+            _repo = repo;
         }
-
-        //private static readonly  List<Product> Products = new List<Product>()
-        //{
-        //    new Product { Id = 1, Name = "Cup", Price = 3.99m, StockQuantity = 500, Category = "Crocery", Description = "Exotic tea cups made from Byson bones", IsActive = true },
-        //    new Product { Id = 2, Name = "Toaster", Price = 4.99m, StockQuantity = 700, Category = "Crocery", Description = "Super shiny and quick toaster", IsActive = true },
-        //    new Product { Id = 3, Name = "Bottle", Price = 3.99m, StockQuantity = 900, Category = "Sports", Description = "Very vague bottle", IsActive = true },
-        //    new Product { Id = 4, Name = "TV", Price = 55.99m, StockQuantity = 300, Category = "Electronics", Description = "Big 55Inch TV", IsActive = true },
-        //    new Product { Id = 5, Name = "Blanket", Price = 10.99m, StockQuantity = 100, Category = "Bedding", Description = "Soft blacnket made from unicorn fur", IsActive = true }
-        //};
-
-
 
         public async Task<ServiceResponse<List<ProductDto>>> GetAll()
         {
             _logger.LogInformation("Attempting to fetch all products");
 
             var response = new ServiceResponse<List<ProductDto>>();
-            var products = await _context.Products
-                .Where(p => p.IsActive)
-                .ToListAsync();
+            var products = await _repo.GetAllAsync();
             try
             {
 
@@ -78,12 +67,10 @@ namespace ProductsAPI.Services
                     return response;
                 }
 
-                var product = await _context.Products
-                    .Where(p => p.IsActive)
-                    .FirstOrDefaultAsync(x => x.Id == id);
+                var product = await _repo.GetByIdAsync(id);
 
                 var dto = _mapper.Map<ProductDto>(product); 
-                await _context.SaveChangesAsync();
+                await _repo.SaveChangesAsync();
 
                 response.Data = dto;
                 response.Success = true;
@@ -119,8 +106,8 @@ namespace ProductsAPI.Services
                 product.CreatedDate = DateTime.UtcNow;
                 product.IsActive = true;
 
-                _context.Products.Add(product);
-                await _context.SaveChangesAsync();
+                await _repo.CreateAsync(product);
+                await _repo.SaveChangesAsync();
 
                 response.Data = _mapper.Map<ProductDto>(product);
                 response.Success = true;
@@ -141,7 +128,7 @@ namespace ProductsAPI.Services
         {
             _logger.LogInformation("Attempting to update Product {id}", id);
             var response = new ServiceResponse<ProductDto>();
-            var product = await _context.Products.FirstOrDefaultAsync(prod => prod.Id == id);
+            var product = await _repo.GetByIdAsync(id);
 
             try
             {
@@ -188,7 +175,7 @@ namespace ProductsAPI.Services
                     return response;
                 }
 
-                var product = await _context.Products.FirstOrDefaultAsync(prod => prod.Id == id);
+                var product = await _repo.GetByIdAsync(id);
 
                 if (product == null)
                 {
@@ -201,6 +188,7 @@ namespace ProductsAPI.Services
                 product.IsActive = false;
                 product.UpdatedDate = DateTime.UtcNow;
 
+                await _repo.SaveChangesAsync();
 
                 response.Data = true;
                 response.Success = true;
