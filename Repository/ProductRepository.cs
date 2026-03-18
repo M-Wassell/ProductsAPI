@@ -47,6 +47,12 @@ namespace ProductsAPI.Repository
             return await _context.SaveChangesAsync() > 0;
         }
 
+        public async Task<List<Product>> GetExactPriceAsynce(decimal price) { 
+        
+            return await _context.Products
+                .Where(p => p.IsActive && p.Price == price)
+                .ToListAsync();
+        }
 
     }
 }

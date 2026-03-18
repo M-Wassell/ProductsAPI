@@ -11,5 +11,6 @@ namespace ProductsAPI.Services
         Task<ServiceResponse<ProductDto>> Create(CreateProductDto product);
         Task<ServiceResponse<ProductDto>> Update(int id, UpdateProductDto upDatingProduct);
         Task<ServiceResponse<bool>> Delete(int id);
+        Task<ServiceResponse<List<ProductDto>>> GetExactPriceAsynce(decimal price);
     }
 }

@@ -204,5 +204,44 @@ namespace ProductsAPI.Services
             
             return response;
         }
+
+        public async Task<ServiceResponse<List<ProductDto>>> GetExactPriceAsynce(decimal price)
+        {
+            _logger.LogInformation("Attempting to fetch product by price");
+            var response = new ServiceResponse<List<ProductDto>>();
+
+            try
+            {
+                if (price < 0) {
+                    _logger.LogWarning("Price not found");
+                    response.Success = false;
+                    response.Message = "Price not found";
+                    return response;
+                }
+
+                var product = await _repo.GetExactPriceAsynce(price);
+
+                if (product == null) {
+                    _logger.LogWarning("Product does not exist");
+                    response.Success = false;
+                    response.Message = ("Product does not exist");
+                    return response;
+                }
+
+                response.Data = _mapper.Map<List<ProductDto>>(product);
+                response.Success = true;
+                response.Message = "Products matching price found";
+                _logger.LogInformation("Found Product Successfully");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Internal Server Error");
+                response.Success = false;
+                response.Message = "Server Error";
+            }
+
+
+            return response;
+        }
     }
 }

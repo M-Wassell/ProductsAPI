@@ -11,5 +11,6 @@ namespace ProductsAPI.Repository
         void Delete(Product product);
         Task<bool> SaveChangesAsync();
 
+        Task<List<Product>> GetExactPriceAsynce(decimal price);
     }
 }

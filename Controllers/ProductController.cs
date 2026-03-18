@@ -91,5 +91,17 @@ namespace ProductsAPI.Controllers
             return NoContent();
         }
 
+        [HttpGet("by-price")]
+        public async Task<ActionResult> GetExactPriceAsync([FromQuery] decimal price) {
+
+            var result = await _productService.GetExactPriceAsynce(price);
+
+            if (!result.Success) {
+                return NotFound(result.Message);
+            }
+
+            return result.Success ? Ok(result.Data) : Problem(result.Message);
+        }
+
     }
 }
