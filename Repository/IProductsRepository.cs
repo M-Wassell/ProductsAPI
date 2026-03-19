@@ -10,7 +10,9 @@ namespace ProductsAPI.Repository
         void Update(Product product);
         void Delete(Product product);
         Task<bool> SaveChangesAsync();
-
-        Task<List<Product>> GetExactPriceAsynce(decimal price);
+        Task<List<Product>> GetExactPriceAsync(decimal price);
+        Task<List<Product>> GetPriceRangeAsync(decimal? minPrice, decimal? maxPrice);
+        Task<List<Product>> GetProductByNameAsync(string name);
+        Task<List<Product>> GetProductByCategoryAsync(string category);
     }
 }

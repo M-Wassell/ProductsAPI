@@ -5,6 +5,7 @@ using ProductsAPI.Data;
 using ProductsAPI.Dto;
 using ProductsAPI.Models;
 using ProductsAPI.Repository;
+using System.Xml.Linq;
 
 namespace ProductsAPI.Services
 {
@@ -205,7 +206,7 @@ namespace ProductsAPI.Services
             return response;
         }
 
-        public async Task<ServiceResponse<List<ProductDto>>> GetExactPriceAsynce(decimal price)
+        public async Task<ServiceResponse<List<ProductDto>>> GetExactPriceAsync(decimal price)
         {
             _logger.LogInformation("Attempting to fetch product by price");
             var response = new ServiceResponse<List<ProductDto>>();
@@ -219,7 +220,7 @@ namespace ProductsAPI.Services
                     return response;
                 }
 
-                var product = await _repo.GetExactPriceAsynce(price);
+                var product = await _repo.GetExactPriceAsync(price);
 
                 if (product == null) {
                     _logger.LogWarning("Product does not exist");
@@ -240,6 +241,119 @@ namespace ProductsAPI.Services
                 response.Message = "Server Error";
             }
 
+
+            return response;
+        }
+
+
+        public async Task<ServiceResponse<List<ProductDto>>> GetPriceRangeAsync(decimal? minPrice, decimal? maxPrice)
+        {
+            _logger.LogInformation("Attempting to fetch product by price range");
+            var response = new ServiceResponse<List<ProductDto>>();
+
+            try
+            {
+                if (minPrice < 0)
+                {
+                    _logger.LogWarning("Price not found");
+                    response.Success = false;
+                    response.Message = "Price not found";
+                    return response;
+                }
+
+                if (maxPrice < 0)
+                {
+                    _logger.LogWarning("Price not found");
+                    response.Success = false;
+                    response.Message = "Price not found";
+                    return response;
+                }
+
+                var product = await _repo.GetPriceRangeAsync(minPrice, maxPrice);
+
+                if (product == null)
+                {
+                    _logger.LogWarning("Product does not exist");
+                    response.Success = false;
+                    response.Message = ("Product does not exist");
+                    return response;
+                }
+
+                response.Data = _mapper.Map<List<ProductDto>>(product);
+                response.Success = true;
+                response.Message = "Product price range found";
+                _logger.LogInformation("Products found Successfully");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Internal Server Error");
+                response.Success = false;
+                response.Message = "Server Error";
+            }
+
+            return response;
+        }
+
+        public async Task<ServiceResponse<List<ProductDto>>> GetProductByNameAsync(string name)
+        {
+            _logger.LogInformation("Attempting to fetch product by name");
+            var response = new ServiceResponse<List<ProductDto>>();
+
+            try
+            {
+                if (String.IsNullOrWhiteSpace(name))
+                {
+                    _logger.LogWarning("Name not found");
+                    response.Success = false;
+                    response.Message = "Name not found";
+                    return response;
+                }
+
+                var product = await _repo.GetProductByNameAsync(name);
+
+                response.Data = _mapper.Map<List<ProductDto>>(product);
+                response.Success = true;
+                response.Message = "Products matching name found";
+                _logger.LogInformation("Product name found Successfully");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Internal Server Error");
+                response.Success = false;
+                response.Message = "Server Error";
+            }
+
+            return response;
+        }
+
+        public async Task<ServiceResponse<List<ProductDto>>> GetProductByCategoryAsync(string category)
+        {
+            _logger.LogInformation("Attempting to fetch product by category");
+            var response = new ServiceResponse<List<ProductDto>>();
+
+            try
+            {
+                if (category == null)
+                {
+                    _logger.LogWarning("category not found");
+                    response.Success = false;
+                    response.Message = "Ncategoryame not found";
+                    return response;
+                }
+
+                var product = await _repo.GetProductByCategoryAsync(category);
+
+                response.Data = _mapper.Map<List<ProductDto>>(product);
+                response.Success = true;
+                response.Message = "Products matching category found";
+                _logger.LogInformation("Product category found Successfully");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Internal Server Error");
+                response.Success = false;
+                response.Message = "Server Error";
+            }
 
             return response;
         }

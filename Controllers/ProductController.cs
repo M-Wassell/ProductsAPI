@@ -94,9 +94,49 @@ namespace ProductsAPI.Controllers
         [HttpGet("by-price")]
         public async Task<ActionResult> GetExactPriceAsync([FromQuery] decimal price) {
 
-            var result = await _productService.GetExactPriceAsynce(price);
+            var result = await _productService.GetExactPriceAsync(price);
 
             if (!result.Success) {
+                return NotFound(result.Message);
+            }
+
+            return result.Success ? Ok(result.Data) : Problem(result.Message);
+        }
+
+        [HttpGet("by-price-range")]
+        public async Task<ActionResult> GetPriceRangeAsync([FromQuery] decimal minPrice, decimal maxPrice)
+        {
+            var result = await _productService.GetPriceRangeAsync(minPrice, maxPrice);
+
+            if (!result.Success)
+            {
+                return NotFound(result.Message);
+            }
+
+            return result.Success ? Ok(result.Data) : Problem(result.Message);
+        }
+
+        [HttpGet("by-name")]
+        public async Task<ActionResult> GetProductByNameAsync([FromQuery] string name)
+        {
+            var result = await _productService.GetProductByNameAsync(name);
+
+            if (!result.Success)
+            {
+                return NotFound(result.Message);
+            }
+
+            return result.Success ? Ok(result.Data) : Problem(result.Message);
+        }
+
+        [HttpGet("by-category")]
+        public async Task<ActionResult> GetProductByCategoryAsync([FromQuery] string category)
+        {
+
+            var result = await _productService.GetProductByCategoryAsync(category);
+
+            if (!result.Success)
+            {
                 return NotFound(result.Message);
             }
 
