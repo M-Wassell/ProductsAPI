@@ -8,6 +8,8 @@ C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\ProductsAPI.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\ProductsAPI.pdb
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\AutoMapper.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\FluentValidation.dll
+C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\FluentValidation.DependencyInjectionExtensions.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Humanizer.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Microsoft.Build.Locator.dll

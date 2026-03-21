@@ -91,7 +91,7 @@ namespace ProductsAPI.Services
 
         public async Task<ServiceResponse<ProductDto>> Create(CreateProductDto createProductDto)
         {
-            _logger.LogInformation("Attempting to create new Product");
+            _logger.LogInformation("Attempting to create new Product {newProduct}", createProductDto);
             var response = new ServiceResponse<ProductDto>();
 
             try
@@ -248,34 +248,34 @@ namespace ProductsAPI.Services
 
         public async Task<ServiceResponse<List<ProductDto>>> GetPriceRangeAsync(decimal? minPrice, decimal? maxPrice)
         {
-            _logger.LogInformation("Attempting to fetch product by price range");
+            _logger.LogInformation("Fetching products between {minPrice} and {maxPrice}", minPrice, maxPrice);
             var response = new ServiceResponse<List<ProductDto>>();
 
             try
             {
-                if (minPrice < 0)
-                {
-                    _logger.LogWarning("Price not found");
-                    response.Success = false;
-                    response.Message = "Price not found";
-                    return response;
-                }
+                //if (minPrice < 0)
+                //{
+                //    _logger.LogWarning("Price not found");
+                //    response.Success = false;
+                //    response.Message = "Price not found";
+                //    return response;
+                //}
 
-                if (maxPrice < 0)
-                {
-                    _logger.LogWarning("Price not found");
-                    response.Success = false;
-                    response.Message = "Price not found";
-                    return response;
-                }
+                //if (maxPrice < 0)
+                //{
+                //    _logger.LogWarning("Price not found");
+                //    response.Success = false;
+                //    response.Message = "Price not found";
+                //    return response;
+                //}
 
                 var product = await _repo.GetPriceRangeAsync(minPrice, maxPrice);
 
                 if (product == null)
                 {
-                    _logger.LogWarning("Product does not exist");
+                    _logger.LogWarning("No products found in this range");
                     response.Success = false;
-                    response.Message = ("Product does not exist");
+                    response.Message = ("No products found in this price range");
                     return response;
                 }
 
@@ -286,7 +286,7 @@ namespace ProductsAPI.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Internal Server Error");
+                _logger.LogError(ex, "Error fetching price range");
                 response.Success = false;
                 response.Message = "Server Error";
             }

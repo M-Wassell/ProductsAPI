@@ -1,4 +1,5 @@
 using AutoMapper;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using ProductsAPI.Data;
 using ProductsAPI.Repository;
@@ -14,6 +15,7 @@ namespace ProductsAPI
 
             builder.Services.AddControllers();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddValidatorsFromAssemblyContaining<Program>();
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddAutoMapper(typeof(Program).Assembly);

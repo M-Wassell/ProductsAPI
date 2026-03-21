@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using ProductsAPI.Classess;
 using ProductsAPI.Data;
 using ProductsAPI.Dto;
+using ProductsAPI.Dto.Query;
 using ProductsAPI.Models;
 using ProductsAPI.Services;
+using ProductsAPI.Validators;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Threading.Tasks;
@@ -13,13 +16,18 @@ namespace ProductsAPI.Controllers
 {
     [ApiController]
     [Route("api/[Controller]")]
-    public class ProductsController : ControllerBase
+    public class ProductsController : BaseApiController
     {
         private readonly IProductService _productService;
+        private readonly IValidator<PriceRangeQuery> _priceRangeQueryValidator;
+        private readonly IValidator<CreateProductQuery> _createProductQueryValidator;
 
-        public ProductsController(IProductService productService)
+
+        public ProductsController(IProductService productService, IValidator<PriceRangeQuery> priceRangeQueryValidator, IValidator<CreateProductQuery> createProductQueryValidator)
         {
             _productService = productService;
+            _priceRangeQueryValidator = priceRangeQueryValidator;
+            _createProductQueryValidator = createProductQueryValidator;
         }
 
         [HttpGet]
@@ -47,13 +55,14 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<ProductDto>>>Create(CreateProductDto dto) {
+        public async Task<ActionResult<ServiceResponse<ProductDto>>>Create(CreateProductQuery query) {
 
-            if (dto == null){ 
-                return NotFound();
+            var validationResult = await _createProductQueryValidator.ValidateAsync(query);
+            if (!validationResult.IsValid ){ 
+                return ValidationProblem(validationResult);
             }
 
-            var result = await _productService.Create(dto);
+            var result = await _productService.Create(query.Dto);
 
             if (!result.Success) {
                 return BadRequest(result);
@@ -104,14 +113,16 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpGet("by-price-range")]
-        public async Task<ActionResult> GetPriceRangeAsync([FromQuery] decimal minPrice, decimal maxPrice)
+        public async Task<ActionResult> GetPriceRangeAsync([FromQuery] PriceRangeQuery query)
         {
-            var result = await _productService.GetPriceRangeAsync(minPrice, maxPrice);
+            var validationResult = await _priceRangeQueryValidator.ValidateAsync(query);
 
-            if (!result.Success)
+            if (!validationResult.IsValid)
             {
-                return NotFound(result.Message);
+                return ValidationProblem(validationResult);
             }
+
+            var result = await _productService.GetPriceRangeAsync(query.MinPrice, query.MaxPrice);
 
             return result.Success ? Ok(result.Data) : Problem(result.Message);
         }
