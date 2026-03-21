@@ -21,13 +21,16 @@ namespace ProductsAPI.Controllers
         private readonly IProductService _productService;
         private readonly IValidator<PriceRangeQuery> _priceRangeQueryValidator;
         private readonly IValidator<CreateProductQuery> _createProductQueryValidator;
+        private readonly IValidator<UpdateProductQuery> _updateProductQueryValidator;
 
 
-        public ProductsController(IProductService productService, IValidator<PriceRangeQuery> priceRangeQueryValidator, IValidator<CreateProductQuery> createProductQueryValidator)
+        public ProductsController(IProductService productService, IValidator<PriceRangeQuery> priceRangeQueryValidator, 
+            IValidator<CreateProductQuery> createProductQueryValidator, IValidator<UpdateProductQuery> updateProductQuery)
         {
             _productService = productService;
             _priceRangeQueryValidator = priceRangeQueryValidator;
             _createProductQueryValidator = createProductQueryValidator;
+            _updateProductQueryValidator = updateProductQuery;
         }
 
         [HttpGet]
@@ -55,7 +58,7 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<ProductDto>>>Create(CreateProductQuery query) {
+        public async Task<ActionResult<ServiceResponse<ProductDto>>>Create([FromForm]CreateProductQuery query) {
 
             var validationResult = await _createProductQueryValidator.ValidateAsync(query);
             if (!validationResult.IsValid ){ 
@@ -72,19 +75,23 @@ namespace ProductsAPI.Controllers
             return CreatedAtAction(nameof(GetById), new { id = result.Data}, result);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<ProductDto>> Update(int id, UpdateProductDto dto)
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<ProductDto>> Update(int id, [FromForm] UpdateProductQuery query)
         {
-            if (id <= 0) {
-                return NotFound();
+            query.Id = id;
+             
+            var validationResult = await _updateProductQueryValidator.ValidateAsync(query);
+
+            if (!validationResult.IsValid) {
+                return ValidationProblem(validationResult);
             }
-            var updated = await _productService.Update(id, dto);
+            var updated = await _productService.Update(query.Id, query.Dto);
 
             if (updated == null) { 
                 return NotFound();
             }
 
-            return Ok(updated);
+            return updated.Success ? Ok(updated.Data) : Problem(updated.Message);
         }
 
         [HttpDelete("{id}")]

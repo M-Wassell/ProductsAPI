@@ -96,12 +96,12 @@ namespace ProductsAPI.Services
 
             try
             {
-                if (String.IsNullOrWhiteSpace(createProductDto.Name)) {
-                    _logger.LogError("Failed to fetch product {newProduct}", createProductDto);
-                    response.Success = false;
-                    response.Message = "Product Name is required";
-                    return response;
-                }
+                //if (String.IsNullOrWhiteSpace(createProductDto.Name)) {
+                //    _logger.LogError("Failed to fetch product {newProduct}", createProductDto);
+                //    response.Success = false;
+                //    response.Message = "Product Name is required";
+                //    return response;
+                //}
 
                 var product = _mapper.Map<Product>(createProductDto);
                 product.CreatedDate = DateTime.UtcNow;
