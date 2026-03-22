@@ -133,17 +133,18 @@ namespace ProductsAPI.Services
 
             try
             {
-                if (id <= 0)
-                {
-                    _logger.LogError("Failed to fetch product {id}", id);
-                    response.Success = false;
-                    response.Message = "Product Id not found";
-                    return response;
-                }
+                //if (id <= 0)
+                //{
+                //    _logger.LogError("Failed to fetch product {id}", id);
+                //    response.Success = false;
+                //    response.Message = "Product Id not found";
+                //    return response;
+                //}
 
                 _mapper.Map(updateProductDto, product);
-
                 product.UpdatedDate = DateTime.UtcNow;
+
+                await _repo.SaveChangesAsync();
 
                 response.Data = _mapper.Map<ProductDto>(product);
                 response.Success = true;
