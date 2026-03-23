@@ -7,12 +7,20 @@
       "RelativeMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|solutionrelative:services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|c:\\users\\micha\\source\\repos\\productsapi\\services\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|solutionrelative:services\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|c:\\users\\micha\\source\\repos\\productsapi\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|solutionrelative:controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|c:\\users\\micha\\source\\repos\\productsapi\\dto\\query\\updateproductquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|solutionrelative:dto\\query\\updateproductquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|c:\\users\\micha\\source\\repos\\productsapi\\repository\\productrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|solutionrelative:repository\\productrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|c:\\users\\micha\\source\\repos\\productsapi\\repository\\iproductsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|solutionrelative:repository\\iproductsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|c:\\users\\micha\\source\\repos\\productsapi\\validators\\updateproductqueryvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -36,7 +44,7 @@
               "RelativeDocumentMoniker": "Services\\ProductService.cs",
               "ToolTip": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Services\\ProductService.cs",
               "RelativeToolTip": "Services\\ProductService.cs",
-              "ViewState": "AgIAAH0AAAAAAAAAAAAUwJIAAAAvAAAAAAAAAA==",
+              "ViewState": "AgIAACgAAAAAAAAAAAAkwBcAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-12T16:06:03.503Z",
               "IsPinned": true,
@@ -44,13 +52,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ProductController.cs",
               "DocumentMoniker": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Controllers\\ProductController.cs",
               "RelativeDocumentMoniker": "Controllers\\ProductController.cs",
               "ToolTip": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Controllers\\ProductController.cs",
               "RelativeToolTip": "Controllers\\ProductController.cs",
-              "ViewState": "AgIAAEQAAAAAAAAAAAAUwE0AAAAdAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAACUAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-12T16:04:16.417Z",
               "IsPinned": true,
@@ -58,29 +66,58 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UpdateProductQuery.cs",
-              "DocumentMoniker": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Dto\\Query\\UpdateProductQuery.cs",
-              "RelativeDocumentMoniker": "Dto\\Query\\UpdateProductQuery.cs",
-              "ToolTip": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Dto\\Query\\UpdateProductQuery.cs",
-              "RelativeToolTip": "Dto\\Query\\UpdateProductQuery.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAkAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "IProductService.cs",
+              "DocumentMoniker": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Services\\IProductService.cs",
+              "RelativeDocumentMoniker": "Services\\IProductService.cs",
+              "ToolTip": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Services\\IProductService.cs",
+              "RelativeToolTip": "Services\\IProductService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABTAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-21T23:09:35.485Z",
+              "WhenOpened": "2026-03-23T22:23:27.113Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IProductsRepository.cs",
+              "DocumentMoniker": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Repository\\IProductsRepository.cs",
+              "RelativeDocumentMoniker": "Repository\\IProductsRepository.cs",
+              "ToolTip": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Repository\\IProductsRepository.cs",
+              "RelativeToolTip": "Repository\\IProductsRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-23T22:17:05.051Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "ProductRepository.cs",
+              "DocumentMoniker": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Repository\\ProductRepository.cs",
+              "RelativeDocumentMoniker": "Repository\\ProductRepository.cs",
+              "ToolTip": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Repository\\ProductRepository.cs",
+              "RelativeToolTip": "Repository\\ProductRepository.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABQAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-23T22:11:48.518Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "UpdateProductQueryValidator.cs",
               "DocumentMoniker": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Validators\\UpdateProductQueryValidator.cs",
               "RelativeDocumentMoniker": "Validators\\UpdateProductQueryValidator.cs",
               "ToolTip": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Validators\\UpdateProductQueryValidator.cs",
               "RelativeToolTip": "Validators\\UpdateProductQueryValidator.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-21T22:42:16.374Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-21T22:42:16.374Z"
             }
           ]
         }

@@ -4,7 +4,7 @@ namespace ProductsAPI.Repository
 {
     public interface IProductRepository
     {
-        Task<List<Product>> GetAllAsync();
+        Task<List<Product>> GetAllAsync(int pageNumber, int pageSize);
         Task<Product?> GetByIdAsync(int id);
         Task CreateAsync(Product product);
         void Update(Product product);

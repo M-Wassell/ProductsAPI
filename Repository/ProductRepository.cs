@@ -15,10 +15,16 @@ namespace ProductsAPI.Repository
         {
             _context = context;
         }
-        public async Task<List<Product>> GetAllAsync()
+        public async Task<List<Product>> GetAllAsync(int pageNumber, int pageSize)
         {
+            pageNumber = pageNumber < 1 ? 1 : pageNumber;
+            pageSize = pageSize < 10 ? 10 : pageSize;
+
             return await _context.Products
                 .Where(p => p.IsActive)
+                .OrderBy(p => p.Id)
+                .Skip((pageNumber - 1) * pageSize )
+                .Take(pageSize)
                 .ToListAsync();
         }
 

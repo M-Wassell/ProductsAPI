@@ -1,6 +1,6 @@
 ﻿namespace ProductsAPI.Dto.Query
 {
-    public class CreateProductQuery
+    public record CreateProductQuery
     {
         public CreateProductDto? Dto { get; set; }
     }

@@ -11,24 +11,24 @@ namespace ProductsAPI.Services
 {
     public class ProductService : IProductService
     {
+        private static List<Product> _products = new();
+        
         private readonly IProductRepository _repo;
         private readonly ILogger<ProductService> _logger;
-        private static List<Product> _products = new();
-
-
         private readonly IMapper _mapper;
+
         public ProductService(IMapper mapper, ILogger<ProductService> logger, IProductRepository repo) { 
             _mapper = mapper;
             _logger = logger;
             _repo = repo;
         }
 
-        public async Task<ServiceResponse<List<ProductDto>>> GetAll()
+        public async Task<ServiceResponse<List<ProductDto>>> GetAll(int pageNumber, int pageSize)
         {
             _logger.LogInformation("Attempting to fetch all products");
 
             var response = new ServiceResponse<List<ProductDto>>();
-            var products = await _repo.GetAllAsync();
+            var products = await _repo.GetAllAsync(pageNumber, pageSize);
             try
             {
 
@@ -96,13 +96,6 @@ namespace ProductsAPI.Services
 
             try
             {
-                //if (String.IsNullOrWhiteSpace(createProductDto.Name)) {
-                //    _logger.LogError("Failed to fetch product {newProduct}", createProductDto);
-                //    response.Success = false;
-                //    response.Message = "Product Name is required";
-                //    return response;
-                //}
-
                 var product = _mapper.Map<Product>(createProductDto);
                 product.CreatedDate = DateTime.UtcNow;
                 product.IsActive = true;
@@ -133,14 +126,6 @@ namespace ProductsAPI.Services
 
             try
             {
-                //if (id <= 0)
-                //{
-                //    _logger.LogError("Failed to fetch product {id}", id);
-                //    response.Success = false;
-                //    response.Message = "Product Id not found";
-                //    return response;
-                //}
-
                 _mapper.Map(updateProductDto, product);
                 product.UpdatedDate = DateTime.UtcNow;
 
@@ -254,22 +239,6 @@ namespace ProductsAPI.Services
 
             try
             {
-                //if (minPrice < 0)
-                //{
-                //    _logger.LogWarning("Price not found");
-                //    response.Success = false;
-                //    response.Message = "Price not found";
-                //    return response;
-                //}
-
-                //if (maxPrice < 0)
-                //{
-                //    _logger.LogWarning("Price not found");
-                //    response.Success = false;
-                //    response.Message = "Price not found";
-                //    return response;
-                //}
-
                 var product = await _repo.GetPriceRangeAsync(minPrice, maxPrice);
 
                 if (product == null)

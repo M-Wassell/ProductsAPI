@@ -23,7 +23,6 @@ namespace ProductsAPI.Controllers
         private readonly IValidator<CreateProductQuery> _createProductQueryValidator;
         private readonly IValidator<UpdateProductQuery> _updateProductQueryValidator;
 
-
         public ProductsController(IProductService productService, IValidator<PriceRangeQuery> priceRangeQueryValidator, 
             IValidator<CreateProductQuery> createProductQueryValidator, IValidator<UpdateProductQuery> updateProductQuery)
         {
@@ -34,9 +33,9 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ServiceResponse<List<ProductDto>>>> GetAll()
+        public async Task<ActionResult<ServiceResponse<List<ProductDto>>>> GetAll(int pageNumber = 1, int pageSize = 10)
         {
-            var result = await _productService.GetAll();
+            var result = await _productService.GetAll(pageNumber, pageSize);
             return Ok(result);
         }
 

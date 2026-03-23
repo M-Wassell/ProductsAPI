@@ -11,8 +11,6 @@ namespace ProductsAPI.Validators
             RuleFor(x => x.Dto)
             .NotNull()
             .WithMessage("Update Product data is required");
-                //Ensures Update Product DTO is not null before moving on
-                // .DependentRules(() => is instead of a while statement
                 
             RuleFor( x => x.Dto.Name)
                 .NotEmpty()
