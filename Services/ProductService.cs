@@ -232,14 +232,14 @@ namespace ProductsAPI.Services
         }
 
 
-        public async Task<ServiceResponse<List<ProductDto>>> GetPriceRangeAsync(decimal? minPrice, decimal? maxPrice)
+        public async Task<ServiceResponse<List<ProductDto>>> GetPriceRangeAsync(decimal? minPrice, decimal? maxPrice, int pageNumber, int pageSize)
         {
             _logger.LogInformation("Fetching products between {minPrice} and {maxPrice}", minPrice, maxPrice);
             var response = new ServiceResponse<List<ProductDto>>();
 
             try
             {
-                var product = await _repo.GetPriceRangeAsync(minPrice, maxPrice);
+                var product = await _repo.GetPriceRangeAsync(minPrice, maxPrice, pageNumber, pageSize);
 
                 if (product == null)
                 {
@@ -296,7 +296,7 @@ namespace ProductsAPI.Services
             return response;
         }
 
-        public async Task<ServiceResponse<List<ProductDto>>> GetProductByCategoryAsync(string category)
+        public async Task<ServiceResponse<List<ProductDto>>> GetProductByCategoryAsync(string category, int pageNumber, int pageSize)
         {
             _logger.LogInformation("Attempting to fetch product by category");
             var response = new ServiceResponse<List<ProductDto>>();
@@ -311,7 +311,7 @@ namespace ProductsAPI.Services
                     return response;
                 }
 
-                var product = await _repo.GetProductByCategoryAsync(category);
+                var product = await _repo.GetProductByCategoryAsync(category, pageNumber, pageSize);
 
                 response.Data = _mapper.Map<List<ProductDto>>(product);
                 response.Success = true;

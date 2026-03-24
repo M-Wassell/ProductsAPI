@@ -12,9 +12,9 @@ namespace ProductsAPI.Services
         Task<ServiceResponse<ProductDto>> Update(int id, UpdateProductDto upDatingProduct);
         Task<ServiceResponse<bool>> Delete(int id);
         Task<ServiceResponse<List<ProductDto>>> GetExactPriceAsync(decimal price);
-        Task<ServiceResponse<List<ProductDto>>> GetPriceRangeAsync(decimal? minPrice, decimal? maxPrice);
+        Task<ServiceResponse<List<ProductDto>>> GetPriceRangeAsync(decimal? minPrice, decimal? maxPrice, int pageNumber, int pageSize);
         Task<ServiceResponse<List<ProductDto>>> GetProductByNameAsync(string name);
-        Task<ServiceResponse<List<ProductDto>>> GetProductByCategoryAsync(string category);
+        Task<ServiceResponse<List<ProductDto>>> GetProductByCategoryAsync(string category, int pageNumber, int pageSize);
 
     }
 }

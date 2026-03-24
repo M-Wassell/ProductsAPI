@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProductsAPI.Classess;
 using ProductsAPI.Data;
-using SQLitePCL;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace ProductsAPI.Repository
 {
@@ -61,10 +58,17 @@ namespace ProductsAPI.Repository
                 .ToListAsync();
         }
 
-        public async Task<List<Product>> GetPriceRangeAsync(decimal? minPrice, decimal? maxPrice)
+        public async Task<List<Product>> GetPriceRangeAsync(decimal? minPrice, decimal? maxPrice, int pageNumber, int pageSize)
         {
+            pageNumber =pageNumber < 1 ? 1 : pageNumber;
+            pageSize = pageSize < 10 ? 10 : pageSize;
+
             var query = _context.Products
-                .Where(p => p.IsActive);
+                .Where(p => p.IsActive)
+                .OrderBy(p => p.Id)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize);
+
                 
             if (minPrice.HasValue) {
                 query = query.Where(p => p.Price >= minPrice.Value);

@@ -119,7 +119,7 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpGet("by-price-range")]
-        public async Task<ActionResult> GetPriceRangeAsync([FromQuery] PriceRangeQuery query)
+        public async Task<ActionResult> GetPriceRangeAsync([FromQuery] PriceRangeQuery query, int pageNumber, int pageSize)
         {
             var validationResult = await _priceRangeQueryValidator.ValidateAsync(query);
 
@@ -128,7 +128,7 @@ namespace ProductsAPI.Controllers
                 return ValidationProblem(validationResult);
             }
 
-            var result = await _productService.GetPriceRangeAsync(query.MinPrice, query.MaxPrice);
+            var result = await _productService.GetPriceRangeAsync(query.MinPrice, query.MaxPrice, pageNumber, pageSize);
 
             return result.Success ? Ok(result.Data) : Problem(result.Message);
         }
@@ -147,10 +147,10 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpGet("by-category")]
-        public async Task<ActionResult> GetProductByCategoryAsync([FromQuery] string category)
+        public async Task<ActionResult> GetProductByCategoryAsync([FromQuery] string category, int pageNumber, int pageSize)
         {
 
-            var result = await _productService.GetProductByCategoryAsync(category);
+            var result = await _productService.GetProductByCategoryAsync(category, pageNumber, pageSize);
 
             if (!result.Success)
             {
