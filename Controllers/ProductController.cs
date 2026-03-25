@@ -160,5 +160,20 @@ namespace ProductsAPI.Controllers
             return result.Success ? Ok(result.Data) : Problem(result.Message);
         }
 
+        [HttpGet("by-date-created")]
+        public async Task<ActionResult> GetProductsByCreatedDate([FromQuery] string createdDate, int pageNumber = 1, int pageSize = 10)
+        {
+
+            var result = await _productService.GetProductsByCreatedDate(createdDate, pageNumber, pageSize);
+
+            if (!result.Success)
+            {
+                return NotFound(result.Message);
+            }
+
+            return result.Success ? Ok(result.Data) : Problem(result.Message);
+        }
+
+
     }
 }

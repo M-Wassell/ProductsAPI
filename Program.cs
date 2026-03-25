@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ProductsAPI.Data;
 using ProductsAPI.Repository;
 using ProductsAPI.Services;
+using WebAPI_Project.ErrorHandling;
 
 namespace ProductsAPI
 {
@@ -12,7 +13,8 @@ namespace ProductsAPI
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            builder.Services.AddExceptionHandler<ValidationExceptionHandler>();
+            builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
             builder.Services.AddControllers();
             builder.Services.AddSwaggerGen();
             builder.Services.AddValidatorsFromAssemblyContaining<Program>();

@@ -5,6 +5,7 @@ using ProductsAPI.Data;
 using ProductsAPI.Dto;
 using ProductsAPI.Models;
 using ProductsAPI.Repository;
+using System.Globalization;
 using System.Xml.Linq;
 
 namespace ProductsAPI.Services
@@ -307,7 +308,7 @@ namespace ProductsAPI.Services
                 {
                     _logger.LogWarning("category not found");
                     response.Success = false;
-                    response.Message = "Ncategoryame not found";
+                    response.Message = "Category Name not found";
                     return response;
                 }
 
@@ -323,6 +324,49 @@ namespace ProductsAPI.Services
                 _logger.LogError(ex, "Internal Server Error");
                 response.Success = false;
                 response.Message = "Server Error";
+            }
+
+            return response;
+        }
+
+        public async Task<ServiceResponse<List<ProductDto>>> GetProductsByCreatedDate(string createdDate, int pageNumber, int pageSize)
+        {
+            var response = new ServiceResponse<List<ProductDto>>();
+            var formats = new[]
+            {
+                "ddMMyyyy",
+                "dd/MM/yyyy",
+                "dd-MM-yyyy"
+            };
+
+            try
+            {
+                if (!DateTime.TryParseExact(
+                    createdDate,
+                    formats,
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.None,
+                        out DateTime parsedDate))
+                {
+                    _logger.LogWarning("Incorrect date formate {createdDate}", createdDate);
+                    response.Success = false;
+                    response.Message = "Invalid date format. Use DDMMYYYY, DD/MM/YYYY or DD-MM-YYYY.";
+                    return response;
+                }
+
+
+                var product = await _repo.GetProductsByCreatedDate(parsedDate, pageNumber, pageSize);
+
+                response.Data = _mapper.Map<List<ProductDto>>(product);
+                response.Success = true;
+                response.Message = "Product created date found successfully";
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError(ex, "Failed to find product {createdDate}", createdDate);
+                response.Success = false;
+                response.Message = "A database Error occured";
             }
 
             return response;

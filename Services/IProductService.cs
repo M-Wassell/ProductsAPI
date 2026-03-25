@@ -15,6 +15,7 @@ namespace ProductsAPI.Services
         Task<ServiceResponse<List<ProductDto>>> GetPriceRangeAsync(decimal? minPrice, decimal? maxPrice, int pageNumber, int pageSize);
         Task<ServiceResponse<List<ProductDto>>> GetProductByNameAsync(string name);
         Task<ServiceResponse<List<ProductDto>>> GetProductByCategoryAsync(string category, int pageNumber, int pageSize);
+        Task<ServiceResponse<List<ProductDto>>> GetProductsByCreatedDate(string createdDate, int pageNumber, int pageSize);
 
     }
 }

@@ -60,7 +60,7 @@ namespace ProductsAPI.Repository
 
         public async Task<List<Product>> GetPriceRangeAsync(decimal? minPrice, decimal? maxPrice, int pageNumber, int pageSize)
         {
-            pageNumber =pageNumber < 1 ? 1 : pageNumber;
+            pageNumber = pageNumber < 1 ? 1 : pageNumber;
             pageSize = pageSize < 10 ? 10 : pageSize;
 
             var query = _context.Products
@@ -88,10 +88,23 @@ namespace ProductsAPI.Repository
                 .ToListAsync();
         }
 
-        public async Task<List<Product>> GetProductByCategoryAsync(string category)
+        public async Task<List<Product>> GetProductByCategoryAsync(string category, int PageNumber, int pageSize)
         {
             return await _context.Products
                 .Where(p => p.IsActive && p.Category.ToLower() == category.ToLower())
+                .OrderBy(p => p.Id)
+                .Skip((PageNumber -1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+        }
+
+        public async Task<List<Product>> GetProductsByCreatedDate(DateTime createdDate, int pageNumber, int pageSize)
+        {
+            return await _context.Products
+                .Where(p => p.CreatedDate.HasValue && p.CreatedDate.Value.Date == createdDate.Date)
+                .OrderBy(p => p.CreatedDate)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
         }
     }
