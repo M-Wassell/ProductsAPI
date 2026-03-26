@@ -9,8 +9,10 @@ using ProductsAPI.Models;
 using ProductsAPI.Services;
 using ProductsAPI.Validators;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Common;
 using System.Threading.Tasks;
+using WebAPI_Project.ErrorHandling;
 
 namespace ProductsAPI.Controllers
 {
@@ -22,6 +24,7 @@ namespace ProductsAPI.Controllers
         private readonly IValidator<PriceRangeQuery> _priceRangeQueryValidator;
         private readonly IValidator<CreateProductQuery> _createProductQueryValidator;
         private readonly IValidator<UpdateProductQuery> _updateProductQueryValidator;
+
 
         public ProductsController(IProductService productService, IValidator<PriceRangeQuery> priceRangeQueryValidator, 
             IValidator<CreateProductQuery> createProductQueryValidator, IValidator<UpdateProductQuery> updateProductQuery)
@@ -57,38 +60,22 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<ProductDto>>>Create([FromForm]CreateProductQuery query) {
-
-            var validationResult = await _createProductQueryValidator.ValidateAsync(query);
-            if (!validationResult.IsValid ){ 
-                return ValidationProblem(validationResult);
-            }
-
+        public async Task<ActionResult<ServiceResponse<ProductDto>>>Create([FromForm]CreateProductQuery query, [FromServices] IValidator<CreateProductQuery> validator) {
             var result = await _productService.Create(query.Dto);
-
-            if (!result.Success) {
-                return BadRequest(result);
-            }
-
+            
+            validator.ValidateAndThrow(query);
 
             return CreatedAtAction(nameof(GetById), new { id = result.Data}, result);
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<ProductDto>> Update(int id, [FromForm] UpdateProductQuery query)
+        public async Task<ActionResult<ProductDto>> Update(int id, [FromForm] UpdateProductQuery query, [FromServices] IValidator<UpdateProductQuery> validator)
         {
             query.Id = id;
-             
-            var validationResult = await _updateProductQueryValidator.ValidateAsync(query);
 
-            if (!validationResult.IsValid) {
-                return ValidationProblem(validationResult);
-            }
             var updated = await _productService.Update(query.Id, query.Dto);
 
-            if (updated == null) { 
-                return NotFound();
-            }
+            await validator.ValidateAndThrowAsync(query);
 
             return updated.Success ? Ok(updated.Data) : Problem(updated.Message);
         }
@@ -119,16 +106,11 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpGet("by-price-range")]
-        public async Task<ActionResult> GetPriceRangeAsync([FromQuery] PriceRangeQuery query, int pageNumber, int pageSize)
+        public async Task<ActionResult> GetPriceRange([FromQuery] PriceRangeQuery query, [FromServices] IValidator<PriceRangeQuery> validator, int pageNumber = 1, int pageSize = 10)
         {
-            var validationResult = await _priceRangeQueryValidator.ValidateAsync(query);
-
-            if (!validationResult.IsValid)
-            {
-                return ValidationProblem(validationResult);
-            }
-
             var result = await _productService.GetPriceRangeAsync(query.MinPrice, query.MaxPrice, pageNumber, pageSize);
+    
+            await validator.ValidateAndThrowAsync(query);
 
             return result.Success ? Ok(result.Data) : Problem(result.Message);
         }

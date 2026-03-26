@@ -299,34 +299,25 @@ namespace ProductsAPI.Services
 
         public async Task<ServiceResponse<List<ProductDto>>> GetProductByCategoryAsync(string category, int pageNumber, int pageSize)
         {
-            _logger.LogInformation("Attempting to fetch product by category");
-            var response = new ServiceResponse<List<ProductDto>>();
+            _logger.LogInformation("Attempting to fetch product by {category}", category);
 
-            try
+            if (string.IsNullOrWhiteSpace(category))
             {
-                if (category == null)
-                {
-                    _logger.LogWarning("category not found");
-                    response.Success = false;
-                    response.Message = "Category Name not found";
-                    return response;
-                }
-
-                var product = await _repo.GetProductByCategoryAsync(category, pageNumber, pageSize);
-
-                response.Data = _mapper.Map<List<ProductDto>>(product);
-                response.Success = true;
-                response.Message = "Products matching category found";
-                _logger.LogInformation("Product category found Successfully");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Internal Server Error");
-                response.Success = false;
-                response.Message = "Server Error";
+                return new ServiceResponse<List<ProductDto>> { 
+                Success = false,
+                    Message = "Category Name not found",
+                };
             }
 
-            return response;
+            var product = await _repo.GetProductByCategoryAsync(category, pageNumber, pageSize);
+
+            return new ServiceResponse<List<ProductDto>>
+            {
+                Data = _mapper.Map<List<ProductDto>>(product),
+                Success = true,
+                Message = "Products matching category found",
+            };
+
         }
 
         public async Task<ServiceResponse<List<ProductDto>>> GetProductsByCreatedDate(string createdDate, int pageNumber, int pageSize)
