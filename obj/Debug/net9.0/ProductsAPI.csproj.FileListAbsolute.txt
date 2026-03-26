@@ -11,6 +11,7 @@ C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\AutoMapper.Extensions.M
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\FluentValidation.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\FluentValidation.DependencyInjectionExtensions.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Humanizer.dll
+C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Microsoft.Build.Locator.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Microsoft.CodeAnalysis.dll
@@ -26,6 +27,12 @@ C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Microsoft.EntityFramewo
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Sqlite.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Microsoft.OpenApi.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\Mono.TextTemplating.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\SQLitePCLRaw.batteries_v2.dll
@@ -40,6 +47,7 @@ C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\System.Composition.Conv
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\System.Composition.Hosting.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\System.Composition.Runtime.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\System.Composition.TypedParts.dll
+C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.resources.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.resources.dll
 C:\Users\micha\source\repos\ProductsAPI\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.resources.dll

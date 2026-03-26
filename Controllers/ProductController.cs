@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using ProductsAPI.Classess;
@@ -35,6 +36,7 @@ namespace ProductsAPI.Controllers
             _updateProductQueryValidator = updateProductQuery;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<ServiceResponse<List<ProductDto>>>> GetAll(int pageNumber = 1, int pageSize = 10)
         {
