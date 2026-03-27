@@ -15,10 +15,17 @@ namespace ProductsAPI.Validators
             {
                 RuleFor(x => x.Dto.Name)
                     .NotEmpty()
-                    .WithMessage("Name is required");
+                    .WithMessage("Name is required")
+                    .MaximumLength(100)
+                    .WithMessage("Max characters is 100")
+                    .Must(x => !string.IsNullOrWhiteSpace(x))
+                    .WithMessage("Name cannot be whitespace");
+
+
+
 
                 RuleFor(x => x.Dto.Price)
-                    .GreaterThanOrEqualTo(0)
+                    .GreaterThan(0)
                     .WithMessage("Price must be larger than 0");
 
                 RuleFor(x => x.Dto.Description)
@@ -30,8 +37,8 @@ namespace ProductsAPI.Validators
                     .WithMessage("Category is required");
 
                 RuleFor(x => x.Dto.StockQuantity)
-                    .NotEmpty()
-                    .WithMessage("Stock Quantity is required");
+                    .GreaterThan(0)
+                    .WithMessage("Stock Quantity must be larger than 0");
             });
         }
     }
