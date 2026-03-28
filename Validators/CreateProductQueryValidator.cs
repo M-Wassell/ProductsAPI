@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using ProductsAPI.Dto.Query;
+using ProductsAPI.Enums;
 
 namespace ProductsAPI.Validators
 {
@@ -12,9 +13,8 @@ namespace ProductsAPI.Validators
             .WithMessage("Product data is required");
 
             //Will only go past this point if the Dto is not null
-            When(x => x.Dto != null, () =>
-            {
-                
+            When(x => x.Dto != null, () =>{
+
                 RuleFor(x => x.Dto.Name)
                     .NotEmpty()
                     .WithMessage("Name is required")
@@ -34,16 +34,34 @@ namespace ProductsAPI.Validators
                     .WithMessage("Price must be a number, max 10 digits in total and 2 decimal places only.");
 
                 RuleFor(x => x.Dto.Description)
-                    .MaximumLength(60)
-                    .WithMessage("Max characters is 60");
+                    .NotNull()
+                    .WithMessage("The description Cannot be Null");
+                
+                When(x => !string.IsNullOrWhiteSpace(x.Dto.Description), () => { 
+                    RuleFor(x=> x.Dto.Description)                   
+                        .MaximumLength(60)
+                        .WithMessage("Max characters is 60")
+                        .MinimumLength(10)
+                        .WithMessage("Minimum Character count is 10")
+                        .Matches(@"^[a-zA-Z0-9\s.,!]*$")
+                        .WithMessage("Special characters are not allowed");
+                });
+
 
                 RuleFor(x => x.Dto.Category)
-                    .NotEmpty()
-                    .WithMessage("Category is required");
+                    .NotEqual((ProductCategory)0)
+                    .WithMessage("A category must be selected")
+                    .IsInEnum()
+                    .WithMessage($"Please select a valid category {string.Join(", ", Enum.GetNames(typeof(ProductCategory)))}");
+
 
                 RuleFor(x => x.Dto.StockQuantity)
+                    .NotNull()
+                    .WithMessage("StockQuantity cannot be Null")
                     .GreaterThan(0)
-                    .WithMessage("Stock Quantity must be larger than 0");
+                    .WithMessage("Stock Quantity must be larger than 0")
+                    .LessThanOrEqualTo(10000)
+                    .WithMessage("Price cannot exceed 10,000");
             });
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProductsAPI.Classess;
 using ProductsAPI.Data;
+using ProductsAPI.Enums;
 
 namespace ProductsAPI.Repository
 {
@@ -90,8 +91,13 @@ namespace ProductsAPI.Repository
 
         public async Task<List<Product>> GetProductByCategoryAsync(string category, int PageNumber, int pageSize)
         {
+            if (!Enum.TryParse<ProductCategory>(category, true, out var categoryEnum))
+            {
+                return new List<Product>();
+            }
+
             return await _context.Products
-                .Where(p => p.IsActive && p.Category.ToLower() == category.ToLower())
+                .Where(p => p.IsActive && p.Category == categoryEnum)
                 .OrderBy(p => p.Id)
                 .Skip((PageNumber -1) * pageSize)
                 .Take(pageSize)

@@ -10,5 +10,13 @@ namespace ProductsAPI.Data
         {}
 
         public DbSet<Product> Products { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Product>()
+                .Property(p => p.Category)
+                .HasConversion<string>();
+        }
+
     }
 }
