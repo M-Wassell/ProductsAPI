@@ -11,8 +11,10 @@ namespace ProductsAPI.Validators
             .NotNull()
             .WithMessage("Product data is required");
 
+            //Will only go past this point if the Dto is not null
             When(x => x.Dto != null, () =>
             {
+                
                 RuleFor(x => x.Dto.Name)
                     .NotEmpty()
                     .WithMessage("Name is required")
@@ -21,12 +23,15 @@ namespace ProductsAPI.Validators
                     .Must(x => !string.IsNullOrWhiteSpace(x))
                     .WithMessage("Name cannot be whitespace");
 
-
-
-
                 RuleFor(x => x.Dto.Price)
+                    .NotNull()
+                    .WithMessage("Price cannot be Null")
                     .GreaterThan(0)
-                    .WithMessage("Price must be larger than 0");
+                    .WithMessage("Price must be larger than 0")
+                    .LessThanOrEqualTo(1000000m)
+                    .WithMessage("Price cannot exceed 1,000,000")
+                    .PrecisionScale(10, 2, true)
+                    .WithMessage("Price must be a number, max 10 digits in total and 2 decimal places only.");
 
                 RuleFor(x => x.Dto.Description)
                     .MaximumLength(60)

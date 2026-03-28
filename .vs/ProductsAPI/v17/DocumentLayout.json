@@ -16,7 +16,7 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 229,
+          "DockedWidth": 161,
           "SelectedChildIndex": 1,
           "Children": [
             {
@@ -31,7 +31,7 @@
               "RelativeDocumentMoniker": "Validators\\CreateProductQueryValidator.cs",
               "ToolTip": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Validators\\CreateProductQueryValidator.cs",
               "RelativeToolTip": "Validators\\CreateProductQueryValidator.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAA+AAAAAAAAAA==",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAkwBAAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-27T22:24:14.495Z",
               "EditorCaption": ""
@@ -39,7 +39,7 @@
           ]
         },
         {
-          "DockedWidth": 217,
+          "DockedWidth": 285,
           "SelectedChildIndex": 0,
           "Children": [
             {
@@ -50,7 +50,7 @@
               "RelativeDocumentMoniker": "..\\ProductApi_Test_Project\\CreateProductQueryValidator_Test.cs",
               "ToolTip": "C:\\Users\\micha\\source\\repos\\ProductApi_Test_Project\\CreateProductQueryValidator_Test.cs",
               "RelativeToolTip": "..\\ProductApi_Test_Project\\CreateProductQueryValidator_Test.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGsAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAUwF8AAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-26T17:41:47.033Z",
               "EditorCaption": ""
