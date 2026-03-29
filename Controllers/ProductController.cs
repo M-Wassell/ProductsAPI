@@ -131,7 +131,7 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpGet("by-category")]
-        public async Task<ActionResult> GetProductByCategoryAsync([FromQuery] string category, int pageNumber, int pageSize)
+        public async Task<ActionResult> GetProductByCategoryAsync([FromQuery] string category, int pageNumber = 1, int pageSize = 10)
         {
 
             var result = await _productService.GetProductByCategoryAsync(category, pageNumber, pageSize);

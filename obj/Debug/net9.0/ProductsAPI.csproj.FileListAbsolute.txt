@@ -248,10 +248,10 @@ C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\staticwebassets.build.j
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\staticwebassets.build.json.cache
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\Products.2F20E4EC.Up2Date
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\ProductsAPI.dll
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\refint\ProductsAPI.dll
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\ProductsAPI.pdb
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\ProductsAPI.genruntimeconfig.cache
 C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\ref\ProductsAPI.dll
-C:\Users\micha\source\repos\ProductsAPI\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

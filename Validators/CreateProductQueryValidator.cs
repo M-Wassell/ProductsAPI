@@ -30,8 +30,8 @@ namespace ProductsAPI.Validators
                     .WithMessage("Price must be larger than 0")
                     .LessThanOrEqualTo(1000000m)
                     .WithMessage("Price cannot exceed 1,000,000")
-                    .PrecisionScale(10, 2, true)
-                    .WithMessage("Price must be a number, max 10 digits in total and 2 decimal places only.");
+                    .PrecisionScale(7, 2, true)
+                    .WithMessage("Price must be a number, max 7 digits in total and 2 decimal places only.");
 
                 RuleFor(x => x.Dto.Description)
                     .NotNull()
