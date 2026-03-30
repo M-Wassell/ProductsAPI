@@ -1,19 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{AFD6082D-E692-4C0A-B05F-ADC76D6ABF96}|..\\ProductApi_Test_Project\\ProductApi_Test_Project.csproj|c:\\users\\micha\\source\\repos\\productapi_test_project\\pricerangequeryvalidator_test.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|c:\\users\\micha\\source\\repos\\productsapi\\validators\\pricerangequeryvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|solutionrelative:validators\\pricerangequeryvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|c:\\users\\micha\\source\\repos\\productsapi\\validators\\createproductqueryvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{10BF24BF-7664-4A3E-B9B6-1E16C3D31F3B}|ProductsAPI.csproj|solutionrelative:validators\\createproductqueryvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -21,50 +9,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 360,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PriceRangeQueryValidator_Test.cs",
-              "DocumentMoniker": "C:\\Users\\micha\\source\\repos\\ProductApi_Test_Project\\PriceRangeQueryValidator_Test.cs",
-              "RelativeDocumentMoniker": "..\\ProductApi_Test_Project\\PriceRangeQueryValidator_Test.cs",
-              "ToolTip": "C:\\Users\\micha\\source\\repos\\ProductApi_Test_Project\\PriceRangeQueryValidator_Test.cs",
-              "RelativeToolTip": "..\\ProductApi_Test_Project\\PriceRangeQueryValidator_Test.cs",
-              "ViewState": "AgIAAIsAAAAAAAAAAAAqwJ0AAABJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-29T21:24:05.036Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "PriceRangeQueryValidator.cs",
-              "DocumentMoniker": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Validators\\PriceRangeQueryValidator.cs",
-              "RelativeDocumentMoniker": "Validators\\PriceRangeQueryValidator.cs",
-              "ToolTip": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Validators\\PriceRangeQueryValidator.cs",
-              "RelativeToolTip": "Validators\\PriceRangeQueryValidator.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-29T21:26:24.489Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CreateProductQueryValidator.cs",
-              "DocumentMoniker": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Validators\\CreateProductQueryValidator.cs",
-              "RelativeDocumentMoniker": "Validators\\CreateProductQueryValidator.cs",
-              "ToolTip": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\Validators\\CreateProductQueryValidator.cs",
-              "RelativeToolTip": "Validators\\CreateProductQueryValidator.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAkwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-29T21:46:37.791Z",
-              "EditorCaption": ""
             }
           ]
         }
