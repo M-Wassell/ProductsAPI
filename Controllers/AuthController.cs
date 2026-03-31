@@ -1,8 +1,8 @@
 ﻿    using global::WebAPI_Project.Services;
     using Microsoft.AspNetCore.Http.HttpResults;
     using Microsoft.AspNetCore.Mvc;
-    using ProductsAPI.Dto;
-namespace ProductsAPI.Controllers
+    using Contracts.Dto;
+    namespace ProductsAPI.Controllers
 {
 
 

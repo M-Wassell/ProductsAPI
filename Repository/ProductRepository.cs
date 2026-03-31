@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProductsAPI.Classess;
 using ProductsAPI.Data;
-using ProductsAPI.Enums;
+using Contracts.Enums;
 
 namespace ProductsAPI.Repository
 {

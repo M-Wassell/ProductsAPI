@@ -1,4 +1,4 @@
-﻿using ProductsAPI.Enums;
+﻿using Contracts.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace ProductsAPI.Classess

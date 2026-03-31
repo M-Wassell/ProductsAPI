@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using ProductsAPI.Classess;
 using ProductsAPI.Data;
-using ProductsAPI.Dto;
+using Contracts.Dto;
 using ProductsAPI.Dto.Query;
 using ProductsAPI.Models;
 using ProductsAPI.Services;
@@ -14,7 +14,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Common;
 using System.Threading.Tasks;
 using WebAPI_Project.ErrorHandling;
-
+//namespace Product.Contracts.Dto
 namespace ProductsAPI.Controllers
 {
     [ApiController]

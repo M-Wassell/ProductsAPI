@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ProductsAPI.Classess;
 using ProductsAPI.Data;
-using ProductsAPI.Dto;
+using Contracts.Dto;
 using ProductsAPI.Models;
 using ProductsAPI.Repository;
 using System.Globalization;

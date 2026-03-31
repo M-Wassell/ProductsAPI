@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using ProductsAPI.Dto.Query;
-using ProductsAPI.Enums;
+using Contracts.Enums;
 
 namespace ProductsAPI.Validators
 {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using ProductsAPI.Classess;
-using ProductsAPI.Dto;
+using Contracts.Dto;
 
 namespace ProductsAPI.Mapper
 {

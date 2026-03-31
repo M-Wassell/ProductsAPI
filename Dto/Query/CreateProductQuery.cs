@@ -1,4 +1,6 @@
-﻿namespace ProductsAPI.Dto.Query
+﻿using Contracts.Dto;
+
+namespace ProductsAPI.Dto.Query
 {
     public record CreateProductQuery
     {
