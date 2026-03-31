@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\micha\\source\\repos\\ProductsAPI\\ProductsAPI.csproj": {}
+    "C:\\Users\\micha\\source\\repos\\API.Project\\ProductsAPI\\ProductsAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\micha\\source\\repos\\Product.Contracts\\Contracts.csproj": {
+    "C:\\Users\\micha\\source\\repos\\API.Project\\Product.Contracts\\Contracts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\micha\\source\\repos\\Product.Contracts\\Contracts.csproj",
+        "projectUniqueName": "C:\\Users\\micha\\source\\repos\\API.Project\\Product.Contracts\\Contracts.csproj",
         "projectName": "Contracts",
-        "projectPath": "C:\\Users\\micha\\source\\repos\\Product.Contracts\\Contracts.csproj",
+        "projectPath": "C:\\Users\\micha\\source\\repos\\API.Project\\Product.Contracts\\Contracts.csproj",
         "packagesPath": "C:\\Users\\micha\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\micha\\source\\repos\\Product.Contracts\\obj\\",
+        "outputPath": "C:\\Users\\micha\\source\\repos\\API.Project\\Product.Contracts\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -69,14 +69,14 @@
         }
       }
     },
-    "C:\\Users\\micha\\source\\repos\\ProductsAPI\\ProductsAPI.csproj": {
+    "C:\\Users\\micha\\source\\repos\\API.Project\\ProductsAPI\\ProductsAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\ProductsAPI.csproj",
+        "projectUniqueName": "C:\\Users\\micha\\source\\repos\\API.Project\\ProductsAPI\\ProductsAPI.csproj",
         "projectName": "ProductsAPI",
-        "projectPath": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\ProductsAPI.csproj",
+        "projectPath": "C:\\Users\\micha\\source\\repos\\API.Project\\ProductsAPI\\ProductsAPI.csproj",
         "packagesPath": "C:\\Users\\micha\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\obj\\",
+        "outputPath": "C:\\Users\\micha\\source\\repos\\API.Project\\ProductsAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -97,8 +97,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\micha\\source\\repos\\Product.Contracts\\Contracts.csproj": {
-                "projectPath": "C:\\Users\\micha\\source\\repos\\Product.Contracts\\Contracts.csproj"
+              "C:\\Users\\micha\\source\\repos\\API.Project\\Product.Contracts\\Contracts.csproj": {
+                "projectPath": "C:\\Users\\micha\\source\\repos\\API.Project\\Product.Contracts\\Contracts.csproj"
               }
             }
           }

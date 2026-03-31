@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2nXwgxw57fQ=",
+  "dgSpecHash": "nTJUEzWl2HY=",
   "success": true,
-  "projectFilePath": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\ProductsAPI.csproj",
+  "projectFilePath": "C:\\Users\\micha\\source\\repos\\API.Project\\ProductsAPI\\ProductsAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\micha\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\micha\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
@@ -87,9 +87,9 @@
       "code": "NU1903",
       "level": "Warning",
       "message": "Package 'AutoMapper' 12.0.1 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x",
-      "projectPath": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\ProductsAPI.csproj",
+      "projectPath": "C:\\Users\\micha\\source\\repos\\API.Project\\ProductsAPI\\ProductsAPI.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\micha\\source\\repos\\ProductsAPI\\ProductsAPI.csproj",
+      "filePath": "C:\\Users\\micha\\source\\repos\\API.Project\\ProductsAPI\\ProductsAPI.csproj",
       "libraryId": "AutoMapper",
       "targetGraphs": [
         "net9.0"
