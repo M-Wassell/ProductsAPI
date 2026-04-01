@@ -8,12 +8,19 @@ namespace Products.Web
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddRazorPages();
-            builder.Services.AddHttpClient<IProductAPIClient, ProductService>(client =>
-            {
-                client.BaseAddress = new Uri("https://localhost:7197/api/");
-            });
 
+            builder.Services.AddHttpClient<IProductAPIClient, ProductClient>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:7239/");
+            });
+            builder.Services.AddControllersWithViews() 
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters
+                    .Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+                });
+
+            builder.Services.AddRazorPages();
             var app = builder.Build();
 
             if (!app.Environment.IsDevelopment())

@@ -36,7 +36,7 @@ namespace ProductsAPI.Controllers
             _updateProductQueryValidator = updateProductQuery;
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public async Task<ActionResult<ServiceResponse<List<ProductDto>>>> GetAll(int pageNumber = 1, int pageSize = 10)
         {

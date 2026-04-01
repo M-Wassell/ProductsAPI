@@ -200,3 +200,4 @@ C:\Users\micha\source\repos\API.Project\Products.Web\obj\Debug\net9.0\refint\Pro
 C:\Users\micha\source\repos\API.Project\Products.Web\obj\Debug\net9.0\Products.Web.pdb
 C:\Users\micha\source\repos\API.Project\Products.Web\obj\Debug\net9.0\Products.Web.genruntimeconfig.cache
 C:\Users\micha\source\repos\API.Project\Products.Web\obj\Debug\net9.0\ref\Products.Web.dll
+C:\Users\micha\source\repos\API.Project\Products.Web\obj\Debug\net9.0\Products.Web.sourcelink.json
