@@ -1,5 +1,7 @@
-﻿@page
+﻿
+@page
 @model Products.Web.Pages.ProductsModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <h1>Products</h1>
 
@@ -24,9 +26,14 @@
                 <td>@product.Name</td>
                 <td>@product.Price</td>
                 <td>@product.Category</td>
+                <td>
+                    <a asp-page="/Shared/Details" asp-route-id="@product.Id" 
+                    class="btn btn-info">View Details</a>
+                </td>
             </tr>
 
             
         }
     </tbody>
 </table>
+

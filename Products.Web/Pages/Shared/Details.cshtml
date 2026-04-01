@@ -1,0 +1,6 @@
+﻿@page "{id:int}"
+@model Products.Web.Pages.Shared.DetailsModel
+
+<h1>@Model.Product.Name</h1>
+<p>Category: @Model.Product.Category</p>
+<p>Price: @Model.Product.Price.ToString("C")</p>

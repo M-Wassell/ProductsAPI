@@ -8,9 +8,9 @@ namespace Products.Web.Pages
 
     public class ProductsModel : PageModel
     {
-        private readonly IProductAPIClient _productClient;
+        private readonly IProductAPIServiceClient _productClient;
 
-        public ProductsModel(IProductAPIClient productClient)
+        public ProductsModel(IProductAPIServiceClient productClient)
         {
             _productClient = productClient;
         }
@@ -19,6 +19,9 @@ namespace Products.Web.Pages
         public async Task OnGetAsync()
         {
            Products = await _productClient.GetAllProductsAsync();
+
+
         }
+
     }
 }

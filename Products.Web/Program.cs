@@ -9,7 +9,7 @@ namespace Products.Web
             var builder = WebApplication.CreateBuilder(args);
 
 
-            builder.Services.AddHttpClient<IProductAPIClient, ProductClient>(client =>
+            builder.Services.AddHttpClient<IProductAPIServiceClient, ProductServiceClient>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:7239/");
             });
