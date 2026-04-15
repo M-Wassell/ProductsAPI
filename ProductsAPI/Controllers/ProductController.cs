@@ -71,13 +71,14 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<ProductDto>> Update(int id, [FromForm] UpdateProductQuery query, [FromServices] IValidator<UpdateProductQuery> validator)
+        public async Task<ActionResult<ProductDto>> Update(int id, [FromBody] UpdateProductQuery query, [FromServices] IValidator<UpdateProductQuery> validator)
         {
             query.Id = id;
-
+            await validator.ValidateAndThrowAsync(query);
+            
             var updated = await _productService.Update(query.Id, query.Dto);
 
-            await validator.ValidateAndThrowAsync(query);
+            
 
             return updated.Success ? Ok(updated.Data) : Problem(updated.Message);
         }

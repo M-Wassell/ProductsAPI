@@ -50,6 +50,18 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<TokenService>();
 
+
+builder.Services.AddCors(options =>//------------------------ADD this------------
+{
+    options.AddPolicy("AllowProductsWeb", policy =>
+    {
+        policy
+            .WithOrigins("https://localhost:7197")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 var jwtSection = builder.Configuration.GetSection("Jwt");
 var key = Encoding.UTF8.GetBytes(jwtSection["Key"]);
 
@@ -82,6 +94,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseExceptionHandler();
 app.UseHttpsRedirection();
+app.UseCors("AllowProductsWeb");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

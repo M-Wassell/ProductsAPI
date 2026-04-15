@@ -4,9 +4,22 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h2>Get All Products</h2>
+<a asp-page="/Products" class="btn btn-primary">View Products</a>
 
-<a asp-page="/Products" class="btn btn-primary">Go to Page</a>
+<h2>Get product By Id</h2>
+
+<input type="number" id="productIdInput" placeholder="Enter Product ID" />
+<button id="loadProductBtn" class="btn btn-primary">
+        Load Product
+</button>
+
+<div id="productResult" class="product-result"></div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/products.css" />
+}
+
+@section Scripts{
+    <script src="~/js/products.js"></script>
+}

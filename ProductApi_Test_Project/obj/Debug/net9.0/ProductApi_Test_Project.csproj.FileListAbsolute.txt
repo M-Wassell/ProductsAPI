@@ -432,3 +432,4 @@ C:\Users\micha\source\repos\API.Project\ProductApi_Test_Project\obj\Debug\net9.0
 C:\Users\micha\source\repos\API.Project\ProductApi_Test_Project\obj\Debug\net9.0\ProductApi_Test_Project.pdb
 C:\Users\micha\source\repos\API.Project\ProductApi_Test_Project\obj\Debug\net9.0\ProductApi_Test_Project.genruntimeconfig.cache
 C:\Users\micha\source\repos\API.Project\ProductApi_Test_Project\obj\Debug\net9.0\ref\ProductApi_Test_Project.dll
+C:\Users\micha\source\repos\API.Project\ProductApi_Test_Project\obj\Debug\net9.0\ProductApi_Test_Project.sourcelink.json

@@ -3,37 +3,113 @@
 @model Products.Web.Pages.ProductsModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-<h1>Products</h1>
+<div class="page-container">
+    <h1 class="page-title">Products</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Price
-            </th>
-            <th>
-                Category
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var product in Model.Products)
-        {
+    <table class="table products-table">
+        <thead>
             <tr>
-                <td>@product.Name</td>
-                <td>@product.Price</td>
-                <td>@product.Category</td>
-                <td>
-                    <a asp-page="/Shared/Details" asp-route-id="@product.Id" 
-                    class="btn btn-info">View Details</a>
-                </td>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th></th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Products)
+            {
+                <tr data-product-id="@product.Id">
+                    <td>@product.Id</td>
+                    <td>@product.Name</td>
+                    <td>@product.Price</td>
+                    <td>@product.Description</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary view-btn"
+                                data-product-id="@product.Id">
+                            View
+                        </button>
+                        <button class="btn btn-sm btn-primary edit-btn"
+                                data-product-id="@product.Id">
+                            Edit
+                        </button>
+                        <button class="btn btn-sm btn-danger delete-btn"
+                                data-product-id="@product.Id">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
-            
-        }
-    </tbody>
-</table>
 
+<div class="modal fade" id="productModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalTitle"></h5>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <p><strong>Price:</strong> £<span id="modalProductPrice"></span></p>
+                <hr />
+                <p><strong>Description</strong></p>
+                <p id="modalProductDescription"></p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="editProductModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Product</h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" id="editProductId" />
+
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input class="form-control" id="editProductName" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Price</label>
+                    <input type="number" class="form-control" id="editProductPrice" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" id="editProductDescription"></textarea>
+                </div>
+
+                <button id="saveProductBtn" class="btn btn-primary">
+                    Save Changes
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/products.css" />
+}
+
+@section Scripts {
+    <script src="~/js/products.js"></script>
+}
