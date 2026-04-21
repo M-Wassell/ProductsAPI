@@ -16,6 +16,7 @@ C:\Users\micha\source\repos\API.Project\Product.Contracts\obj\Debug\net8.0\Contr
 C:\Users\micha\source\repos\API.Project\Product.Contracts\obj\Debug\net8.0\Contracts.AssemblyInfoInputs.cache
 C:\Users\micha\source\repos\API.Project\Product.Contracts\obj\Debug\net8.0\Contracts.AssemblyInfo.cs
 C:\Users\micha\source\repos\API.Project\Product.Contracts\obj\Debug\net8.0\Contracts.csproj.CoreCompileInputs.cache
+C:\Users\micha\source\repos\API.Project\Product.Contracts\obj\Debug\net8.0\Contracts.sourcelink.json
 C:\Users\micha\source\repos\API.Project\Product.Contracts\obj\Debug\net8.0\Contracts.dll
 C:\Users\micha\source\repos\API.Project\Product.Contracts\obj\Debug\net8.0\refint\Contracts.dll
 C:\Users\micha\source\repos\API.Project\Product.Contracts\obj\Debug\net8.0\Contracts.pdb

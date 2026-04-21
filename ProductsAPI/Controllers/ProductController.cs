@@ -14,6 +14,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Common;
 using System.Threading.Tasks;
 using WebAPI_Project.ErrorHandling;
+using static ProductsAPI.Enums.Status;
 //namespace Product.Contracts.Dto
 namespace ProductsAPI.Controllers
 {
@@ -23,12 +24,12 @@ namespace ProductsAPI.Controllers
     {
         private readonly IProductService _productService;
         private readonly IValidator<PriceRangeQuery> _priceRangeQueryValidator;
-        private readonly IValidator<CreateProductQuery> _createProductQueryValidator;
+        private readonly IValidator<CreateQuery> _createProductQueryValidator;
         private readonly IValidator<UpdateProductQuery> _updateProductQueryValidator;
 
 
         public ProductsController(IProductService productService, IValidator<PriceRangeQuery> priceRangeQueryValidator, 
-            IValidator<CreateProductQuery> createProductQueryValidator, IValidator<UpdateProductQuery> updateProductQuery)
+            IValidator<CreateQuery> createProductQueryValidator, IValidator<UpdateProductQuery> updateProductQuery)
         {
             _productService = productService;
             _priceRangeQueryValidator = priceRangeQueryValidator;
@@ -46,37 +47,38 @@ namespace ProductsAPI.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductDto>> GetById(int id)
-        {
-            if (id <= 0) {
-                return NotFound();
-            }
+        public async Task<ActionResult<ProductDto>> GetProductId(int id) {
 
-            var product = _productService.GetById(id);
+            var result = await _productService.GetProductById(id);
 
-            if (product == null){ 
-                return NotFound();
-            }
-                
-            return Ok(await product);
+            return result.Status switch 
+            {
+                ServiceStatus.NotFound => NotFound(),
+                ServiceStatus.Deleted => Ok(result),
+                ServiceStatus.Success => Ok(result),
+                _ => Problem(result.Message)
+            };
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<ProductDto>>>Create([FromForm]CreateProductQuery query, [FromServices] IValidator<CreateProductQuery> validator) {
-            var result = await _productService.Create(query.Dto);
-            
-            validator.ValidateAndThrow(query);
+        public async Task<ActionResult<ProductDto>> Create([FromBody] CreateQuery query, [FromServices] IValidator<CreateQuery> validator) {
 
-            return CreatedAtAction(nameof(GetById), new { id = result.Data}, result);
+            await validator.ValidateAndThrowAsync(query);
+
+            var result = await _productService.Create(query.CreateDto);
+
+            return Ok(result);
+
+            
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<ProductDto>> Update(int id, [FromBody] UpdateProductQuery query, [FromServices] IValidator<UpdateProductQuery> validator)
+        public async Task<ActionResult<ProductDto>> Update([FromRoute]int id, [FromBody] UpdateProductQuery request, [FromServices] IValidator<UpdateProductQuery> validator)
         {
-            query.Id = id;
-            await validator.ValidateAndThrowAsync(query);
+            request.Id = id;
+            await validator.ValidateAndThrowAsync(request);
             
-            var updated = await _productService.Update(query.Id, query.Dto);
+            var updated = await _productService.Update(request.Id, request.Dto);
 
             
 

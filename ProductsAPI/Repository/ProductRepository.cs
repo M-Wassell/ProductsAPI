@@ -29,7 +29,7 @@ namespace ProductsAPI.Repository
         public async Task<Product?> GetByIdAsync(int id)
         {
             return await _context.Products
-                .Where(p => p.IsActive)
+                //.Where(p => p.IsActive)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
         public void Update(Product product)
@@ -42,10 +42,11 @@ namespace ProductsAPI.Repository
             await _context.Products.AddAsync(product);
         }
 
-        public void Delete(Product product)
-        {
-            _context.Products.Remove(product);
-        }
+        //Not allowing Hard delete for the time being
+        //public void Delete(Product product)
+        //{
+        //    _context.Products.Remove(product);
+        //}
 
         public async Task<bool> SaveChangesAsync()
         {

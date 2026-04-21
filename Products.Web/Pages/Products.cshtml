@@ -13,6 +13,8 @@
                 <th>Name</th>
                 <th>Price</th>
                 <th>Description</th>
+                <th>Stock Quantity</th>
+                <th>Category</th>
                 <th></th>
             </tr>
         </thead>
@@ -21,9 +23,11 @@
             {
                 <tr data-product-id="@product.Id">
                     <td>@product.Id</td>
-                    <td>@product.Name</td>
-                    <td>@product.Price</td>
-                    <td>@product.Description</td>
+                    <td data-field="name">@product.Name</td>
+                    <td data-field="price">@product.Price</td>
+                    <td data-field="description">@product.Description</td>
+                    <td data-field="stockQuantity">@product.StockQuantity</td>
+                    <td data-field="category">@product.Category</td>
                     <td>
                         <button class="btn btn-sm btn-primary view-btn"
                                 data-product-id="@product.Id">
@@ -96,14 +100,79 @@
                     <textarea class="form-control" id="editProductDescription"></textarea>
                 </div>
 
-                <button id="saveProductBtn" class="btn btn-primary">
+                <div class="mb-3">
+                    <label class="form-label">Stock Quantity</label>
+                    <input type="number" id="editProductStock" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Category</label>
+                    <select class="form-select" id="editProductCategory">
+                        <option value="Sport">Sport</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Optical">Optical</option>
+                        <option value="Home">Home</option>
+                        <option value="Beer">Beer</option>
+                    </select>
+                </div>
+
+                <button type="button"
+                        id="saveProductBtn"
+                        class="btn btn-primary">
                     Save Changes
                 </button>
             </div>
-
         </div>
     </div>
 </div>
+
+<section class="create-product">
+    <h2>Create Product</h2>
+
+    <form id="createProductForm">
+        <div class="mb-2">
+            <label>Name</label>
+            <input class="form-control" id="createName" />
+        </div>
+
+        <div class="mb-2">
+            <label>Price</label>
+            <input type="number" class="form-control" id="createPrice" />
+        </div>
+
+        <div class="mb-2">
+            <label>Description</label>
+            <textarea class="form-control" id="createDescription"></textarea>
+        </div>
+
+        <div class="mb-2">
+            <label>Stock Quantity</label>
+            <input type="number" class="form-control" id="createStock" />
+        </div>
+
+        <div class="mb-2">
+            <label>Category</label>
+            <select class="form-select" id="createCategory">
+                <option value="Sport">Sport</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Optical">Optical</option>
+                <option value="Home">Home</option>
+                <option value="Beer">Beer</option>
+            </select>
+        </div>
+
+        <button type="button"
+                id="createProductBtn"
+                class="btn btn-success">
+            Create Product
+        </button>
+
+    </form>
+
+    <div id="createErrors" class="text-danger mt-2"></div>
+    <div id="successDiv" class="text-success mt-2"></div>
+
+</section>
+
 
 
 @section Styles {

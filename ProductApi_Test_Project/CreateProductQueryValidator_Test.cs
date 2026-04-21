@@ -22,16 +22,17 @@ namespace ProductApi_Test_Project
         //TODO - Break this into thier own folder/file
         //Name Testing -----------
         [Test]
-        public void Should_Fail_When_Dto_Is_Null() {
+        public void Should_Fail_When_Dto_Is_Null()
+        {
 
             //Arrange
-            var model = new CreateProductQuery { Dto = null };
+            var model = new CreateQuery(null);
 
             //Act
             var result = _validator.TestValidate(model);
-            
+
             //Assert
-            result.ShouldHaveValidationErrorFor(x => x.Dto)
+            result.ShouldHaveValidationErrorFor(x => x.CreateDto)
                 .WithErrorMessage("Product data is required");
         }
 
@@ -45,13 +46,13 @@ namespace ProductApi_Test_Project
                 Price = 10.00m,
                 StockQuantity = 10,
             };
-            var model = new CreateProductQuery { Dto = dto };
+            var model = new CreateQuery(null);
 
             // Act
             var result = _validator.TestValidate(model);
 
             //Assert
-            result.ShouldHaveValidationErrorFor(x => x.Dto.Name)
+            result.ShouldHaveValidationErrorFor(x => x.CreateDto)
                 .WithErrorMessage("Name is required");
         }
 
@@ -65,13 +66,13 @@ namespace ProductApi_Test_Project
                 Price = 10.00m,
                 StockQuantity = 10,
             };
-            var model = new CreateProductQuery { Dto = dto };
-            
+                        var model = new CreateQuery(null);
+
             // Act
             var result = _validator.TestValidate(model);
-            
+
             //Assert
-            result.ShouldHaveValidationErrorFor(x => x.Dto.Name)
+            result.ShouldHaveValidationErrorFor(x => x.CreateDto)
                 .WithErrorMessage("Max characters is 100");
         }
 
@@ -85,19 +86,20 @@ namespace ProductApi_Test_Project
                 Price = 10.00m,
                 StockQuantity = 10,
             };
-            var model = new CreateProductQuery { Dto = dto };
-            
+                        var model = new CreateQuery(null);
+
             // Act
             var result = _validator.TestValidate(model);
-            
+
             //Assert
-            result.ShouldHaveValidationErrorFor(x => x.Dto.Name)
+            result.ShouldHaveValidationErrorFor(x => x.CreateDto)
                 .WithErrorMessage("Name cannot be whitespace");
         }
 
         //Happy path For correct entry
         [Test]
-        public void Should_Not_Have_An_Error_When_Product_Name_Is_Entered_Correctly() {
+        public void Should_Not_Have_An_Error_When_Product_Name_Is_Entered_Correctly()
+        {
             // Arrange
             var dto = new CreateProductDto
             {
@@ -105,13 +107,15 @@ namespace ProductApi_Test_Project
                 Price = 10.00m,
                 StockQuantity = 10,
             };
-            var model = new CreateProductQuery { Dto = dto };
+
+
+                        var model = new CreateQuery(null);
 
             // Act
             var result = _validator.TestValidate(model);
 
             //Assert
-            result.ShouldNotHaveValidationErrorFor(x => x.Dto.Name);
+            result.ShouldNotHaveValidationErrorFor(x => x.CreateDto);
         }
 
         //Price Testing --------------
@@ -125,13 +129,13 @@ namespace ProductApi_Test_Project
                 Price = null,
                 StockQuantity = 10,
             };
-            var model = new CreateProductQuery { Dto = dto };
-            
+                        var model = new CreateQuery(null);
+
             // Act
             var result = _validator.TestValidate(model);
-            
+
             //Assert
-            result.ShouldHaveValidationErrorFor(x => x.Dto.Price)
+            result.ShouldHaveValidationErrorFor(x => x.CreateDto.Price)
                 .WithErrorMessage("Price cannot be Null");
         }
 
@@ -145,18 +149,19 @@ namespace ProductApi_Test_Project
                 Price = -5.00m,
                 StockQuantity = 10,
             };
-            var model = new CreateProductQuery { Dto = dto };
+                        var model = new CreateQuery(null);
 
             // Act
             var result = _validator.TestValidate(model);
 
             //Assert
-            result.ShouldHaveValidationErrorFor(x => x.Dto.Price)
+            result.ShouldHaveValidationErrorFor(x => x.CreateDto.Price)
                 .WithErrorMessage("Price must be larger than 0");
         }
 
         [Test]
-        public void Should_Have_An_Error_When_Price_Is_too_High() {
+        public void Should_Have_An_Error_When_Price_Is_too_High()
+        {
 
             // Arrange
             var dto = new CreateProductDto
@@ -165,19 +170,20 @@ namespace ProductApi_Test_Project
                 Price = 1000001m,
                 StockQuantity = 10,
             };
-            var model = new CreateProductQuery { Dto = dto };
+                        var model = new CreateQuery(null);
 
             //Act
             var result = _validator.TestValidate(model);
 
             //Assert
-            result.ShouldHaveValidationErrorFor(x => x.Dto.Price)
+            result.ShouldHaveValidationErrorFor(x => x.CreateDto.Price)
                 .WithErrorMessage("Price cannot exceed 1,000,000");
         }
 
         [Test]
-        public void Should_Have_An_Error_If_More_Than_Two_Decimal_Places() {
-            
+        public void Should_Have_An_Error_If_More_Than_Two_Decimal_Places()
+        {
+
             //Arrange
             var dto = new CreateProductDto
             {
@@ -186,20 +192,21 @@ namespace ProductApi_Test_Project
                 StockQuantity = 10,
             };
 
-            var model = new CreateProductQuery { Dto = dto };
+                        var model = new CreateQuery(null);
 
             //Act
             var result = _validator.TestValidate(model);
 
             //Assert
-            result.ShouldHaveValidationErrorFor(x => x.Dto.Price)
+            result.ShouldHaveValidationErrorFor(x => x.CreateDto.Price)
                 .WithErrorMessage("Price must be a number, max 7 digits in total and 2 decimal places only.");
         }
 
         //Happy path test for whole numbers
         [Test]
-        public void Should_Not_Have_An_Error_When_Price_Is_Whole_Number() {
-            
+        public void Should_Not_Have_An_Error_When_Price_Is_Whole_Number()
+        {
+
             //Arrange
             var dto = new CreateProductDto
             {
@@ -207,19 +214,20 @@ namespace ProductApi_Test_Project
                 Price = 10m,
                 StockQuantity = 10,
             };
-            var model = new CreateProductQuery { Dto = dto };
+                        var model = new CreateQuery(null);
 
             //Act
             var result = _validator.TestValidate(model);
 
             //Assert
-            result.ShouldNotHaveValidationErrorFor(x => x.Dto.Price);
+            result.ShouldNotHaveValidationErrorFor(x => x.CreateDto.Price);
         }
 
         //Happy Path test for valid Price
         [Test]
-        public void Should_Not_Have_An_Error_When_Price_Is_Valid() {
-            
+        public void Should_Not_Have_An_Error_When_Price_Is_Valid()
+        {
+
             //Arrange
             var dto = new CreateProductDto
             {
@@ -228,37 +236,39 @@ namespace ProductApi_Test_Project
                 StockQuantity = 10,
             };
 
-            var model = new CreateProductQuery { Dto = dto };
+                        var model = new CreateQuery(null);
 
             //Act
             var result = _validator.TestValidate(model);
 
             //Assert
-            result.ShouldNotHaveValidationErrorFor(x => x.Dto.Price);
-               
+            result.ShouldNotHaveValidationErrorFor(x => x.CreateDto.Price);
+
         }
 
 
         //Testing Description---------------
         [Test]
-        public void SHould_Have_An_Error_If_Description_Is_Null() {
-            
+        public void SHould_Have_An_Error_If_Description_Is_Null()
+        {
+
             //Arrange
-            var dto = new CreateProductDto { 
-            
+            var dto = new CreateProductDto
+            {
+
                 Name = "Test Product",
                 Price = 10.00m,
                 Description = null,
-                StockQuantity= 10,
+                StockQuantity = 10,
             };
 
-            var model = new CreateProductQuery { Dto = dto };
+                        var model = new CreateQuery(null);
 
             //Act
             var result = _validator.TestValidate(model);
 
             //Assert
-            result.ShouldHaveValidationErrorFor(x => x.Dto.Description)
+            result.ShouldHaveValidationErrorFor(x => x.CreateDto.Description)
                 .WithErrorMessage("The description Cannot be Null");
         }
 
@@ -273,13 +283,13 @@ namespace ProductApi_Test_Project
                 Description = new string('a', 61),
                 StockQuantity = 10,
             };
-            var model = new CreateProductQuery { Dto = dto };
+                        var model = new CreateQuery(null);
 
             // Act
             var result = _validator.TestValidate(model);
 
             //Assert
-            result.ShouldHaveValidationErrorFor(x => x.Dto.Description)
+            result.ShouldHaveValidationErrorFor(x => x.CreateDto.Description)
                 .WithErrorMessage("Max characters is 60");
         }
 
@@ -294,13 +304,13 @@ namespace ProductApi_Test_Project
                 Description = new string('a', 9),
                 StockQuantity = 10,
             };
-            var model = new CreateProductQuery { Dto = dto };
+                        var model = new CreateQuery(null);
 
             // Act
             var result = _validator.TestValidate(model);
 
             //Assert
-            result.ShouldHaveValidationErrorFor(x => x.Dto.Description)
+            result.ShouldHaveValidationErrorFor(x => x.CreateDto.Description)
                 .WithErrorMessage("Minimum Character count is 10");
         }
 
@@ -315,17 +325,17 @@ namespace ProductApi_Test_Project
                 Description = "Te$t D£scriTn!*",
                 StockQuantity = 10,
             };
-            var model = new CreateProductQuery { Dto = dto };
+                        var model = new CreateQuery(null);
 
             // Act
             var result = _validator.TestValidate(model);
 
             //Assert
-            result.ShouldHaveValidationErrorFor(x => x.Dto.Description)
+            result.ShouldHaveValidationErrorFor(x => x.CreateDto.Description)
                 .WithErrorMessage("Special characters are not allowed");
         }
 
-        
+
         //Category Testing -------------
         [Test]
         public void Should_Have_Error_When_Category_Is_Not_Selected()
@@ -338,13 +348,13 @@ namespace ProductApi_Test_Project
                 StockQuantity = 10,
                 Category = 0
             };
-            var model = new CreateProductQuery { Dto = dto };
-            
+                        var model = new CreateQuery(null);
+
             // Act
             var result = _validator.TestValidate(model);
-            
+
             //Assert
-            result.ShouldHaveValidationErrorFor(x => x.Dto.Category)
+            result.ShouldHaveValidationErrorFor(x => x.CreateDto.Category)
                 .WithErrorMessage("A category must be selected");
         }
 
@@ -357,15 +367,15 @@ namespace ProductApi_Test_Project
                 Name = "Test Product",
                 Price = 10.00m,
                 StockQuantity = 10,
-                Category = (ProductCategory) 99
+                Category = (ProductCategory)99
             };
-            var model = new CreateProductQuery { Dto = dto };
+                        var model = new CreateQuery(null);
 
             // Act
             var result = _validator.TestValidate(model);
 
             //Assert
-            result.ShouldHaveValidationErrorFor(x => x.Dto.Category)
+            result.ShouldHaveValidationErrorFor(x => x.CreateDto.Category)
                 .WithErrorMessage($"Please select a valid category {string.Join(", ", Enum.GetNames(typeof(ProductCategory)))}");
         }
 
@@ -380,13 +390,13 @@ namespace ProductApi_Test_Project
                 StockQuantity = 10,
                 Category = (ProductCategory)1
             };
-            var model = new CreateProductQuery { Dto = dto };
+                        var model = new CreateQuery(null);
 
             // Act
             var result = _validator.TestValidate(model);
 
             //Assert
-            result.ShouldNotHaveValidationErrorFor(x => x.Dto.Category);
+            result.ShouldNotHaveValidationErrorFor(x => x.CreateDto.Category);
         }
 
 
@@ -403,34 +413,36 @@ namespace ProductApi_Test_Project
                 StockQuantity = null
             };
 
-            var model = new CreateProductQuery { Dto = dto };
+                        var model = new CreateQuery(null);
 
             // Act
             var result = _validator.TestValidate(model);
 
             //Assert
-            result.ShouldHaveValidationErrorFor(x => x.Dto.StockQuantity)
+            result.ShouldHaveValidationErrorFor(x => x.CreateDto.StockQuantity)
                 .WithErrorMessage("StockQuantity cannot be Null");
         }
 
 
         [Test]
-        public void Should_Have_Error_When_Stock_Quantity_Is_Zero(){
+        public void Should_Have_Error_When_Stock_Quantity_Is_Zero()
+        {
 
             // Arrange
-            var dto = new CreateProductDto { 
+            var dto = new CreateProductDto
+            {
                 Name = "Test Product",
                 Price = 10.00m,
-                StockQuantity = 0   
+                StockQuantity = 0
             };
 
-            var model = new CreateProductQuery { Dto = dto };
+                        var model = new CreateQuery(null);
 
             // Act
             var result = _validator.TestValidate(model);
 
             //Assert
-            result.ShouldHaveValidationErrorFor(x => x.Dto.StockQuantity)
+            result.ShouldHaveValidationErrorFor(x => x.CreateDto.StockQuantity)
                 .WithErrorMessage("Stock Quantity must be larger than 0");
         }
 
@@ -445,13 +457,13 @@ namespace ProductApi_Test_Project
                 StockQuantity = 10001
             };
 
-            var model = new CreateProductQuery { Dto = dto };
+                        var model = new CreateQuery(null);
 
             // Act
             var result = _validator.TestValidate(model);
 
             //Assert
-            result.ShouldHaveValidationErrorFor(x => x.Dto.StockQuantity)
+            result.ShouldHaveValidationErrorFor(x => x.CreateDto.StockQuantity)
                 .WithErrorMessage("Price cannot exceed 10,000");
         }
 
@@ -466,13 +478,13 @@ namespace ProductApi_Test_Project
                 StockQuantity = 10
             };
 
-            var model = new CreateProductQuery { Dto = dto };
+                        var model = new CreateQuery(null);
 
             // Act
             var result = _validator.TestValidate(model);
 
             //Assert
-            result.ShouldNotHaveValidationErrorFor(x => x.Dto.StockQuantity);
+            result.ShouldNotHaveValidationErrorFor(x => x.CreateDto.StockQuantity);
         }
     }
 }

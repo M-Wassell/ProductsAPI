@@ -61,7 +61,11 @@ async function onViewProduct(event) {
         document.getElementById("modalProductPrice").textContent = product.price;
         document.getElementById("modalProductDescription").textContent = product.description;
 
-        const modal = new bootstrap.Modal(document.getElementById("productModal"));
+        const modalEl = document.getElementById("productModal");
+        let modal = bootstrap.Modal.getInstance(modalEl);
+        if (!modal) {
+            modal = new bootstrap.Modal(modalEl);
+        }
         modal.show();
 
     } catch (error) {
@@ -108,24 +112,28 @@ async function onEditProduct(event) {
     const productId = button.dataset.productId;
 
     try {
-
         const response = await fetch(`https://localhost:7239/api/products/${productId}`);
 
         if (!response.ok) {
             alert("Product not found");
             return;
         }
-        const apiResponse = await response.json();
-        const product = apiResponse.data;
+        const result = await response.json();
+        const product = result.data;
 
         document.getElementById("editProductId").value = productId;
         document.getElementById("editProductName").value = product.name;
         document.getElementById("editProductPrice").value = product.price;
         document.getElementById("editProductDescription").value = product.description;
+        document.getElementById("editProductStock").value = product.stockQuantity;
+        document.getElementById("editProductCategory").value = product.category;
 
-        const modal = new bootstrap.Modal(
-            document.getElementById("editProductModal"));
+        const modalEl = document.getElementById("editProductModal");
 
+        let modal = bootstrap.Modal.getInstance(modalEl);
+        if (!modal) {
+            modal = new bootstrap.Modal(modalEl);
+        }
         modal.show();
 
     } catch (error) {
@@ -136,18 +144,19 @@ async function onEditProduct(event) {
 
 async function saveProductChanges() {
     const id = document.getElementById("editProductId").value;
+    const categoryValue = document.getElementById("editProductCategory").value;
 
     const requestBody = {
         dto: {
-            name: document.getElementById("editProductName").value,
-            price: Number(document.getElementById("editProductPrice").value),
-            description: document.getElementById("editProductDescription").value,
+                name: document.getElementById("editProductName").value,
+                price: Number(document.getElementById("editProductPrice").value),
+                description: document.getElementById("editProductDescription").value,
+                stockQuantity: Number(document.getElementById("editProductStock").value),
+                category: document.getElementById("editProductCategory").value,
         }
-        
     };
 
     try {
-
         const response = await fetch(`https://localhost:7239/api/products/${id}`,
             {
                 method: "PUT",
@@ -160,19 +169,26 @@ async function saveProductChanges() {
         if (!response.ok) {
 
             const errorText = await response.text();
+
             console.error("Update failed:", response.status, errorText);
+
             alert(`Error Updating Product (${response.status})`);
 
-            alert("Failed to update product");
+            alert("Failed to update Product");
             return;
         }
-        updateProductRow(id, updateProduct);
+        updateProductRow(id, requestBody.dto);
 
-        bootstrap.Modal.getInstance(
-            document.getElementById("editProductModal")
-        ).hide();
+        const modalEl = document.getElementById("editProductModal");
+        const modalInstance = bootstrap.Modal.getInstance(modalEl);
 
-
+        if (modalInstance) {
+            modalInstance.hide();
+            // Fix for "Blocked aria-hidden": move focus back to body
+            setTimeout(() => {
+                document.body.focus();
+            }, 100);
+        } 
 
     } catch (error) {
         console.error(error);
@@ -180,8 +196,76 @@ async function saveProductChanges() {
     }
 }
 
+async function createProduct() {
+    const id = document.getElementById("editProductId").value;
+    const errorsDiv = document.getElementById("createErrors");
+    const successDiv = document.getElementById("successDiv");
+    if (successDiv) successDiv.innerHTML = "";
+    if (errorsDiv) errorsDiv.innerHTML = "";
+
+
+    const newProduct = {
+        CreateDto: {
+            name: document.getElementById("createName").value,
+            price: Number(document.getElementById("createPrice").value),
+            description: document.getElementById("createDescription").value,
+            stockQuantity: Number(document.getElementById("createStock").value),
+            category: document.getElementById("createCategory").value
+        }
+
+    };
+
+    try {
+        const response = await fetch("https://localhost:7239/api/products", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newProduct)
+        });
+
+        if (response.status === 400) {
+            const problem = await response.json();
+            console.error("Validation failed:", problem);
+            showValidationErrors(problem);
+            return;
+        }
+
+        if (!response.ok) {
+            errorsDiv.innerText = "Error creating product"
+            return;
+        }
+
+        const responseBody = await response.json();
+        if (!responseBody.data) {
+            errorsDiv.innerText = "No Product returned from API";
+            return;
+
+        }
+        if (responseBody.data) {
+            addProductRow(responseBody.data);
+            // Clear the form fields after success
+            document.getElementById("createProductForm").reset();
+            successDiv.innerText = "Product Added Successfully";
+        } else {
+            errorsDiv.innerText = "No Product data returned from API";
+        }
+
+    }
+    catch (error) {
+        console.error(error);
+        errorsDiv.innerText = "Unexpected Error creating product"
+
+    }
+
+}
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    const createBtn = document.getElementById("createProductBtn");
+    if (createBtn) {
+        createBtn.addEventListener("click", createProduct);
+    }
 
     const saveBtn = document.getElementById("saveProductBtn");
     if (saveBtn) {
@@ -217,23 +301,70 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-function updateProductRow(id, updateProduct) {
+function updateProductRow(id, updatedProduct) {
 
-    const row = document.querySelector(
-        `tr[data-product-id="${id}"]`
-    );
-
+    const row = document.querySelector(`tr[data-product-id="${id}"]`);
 
     if (!row) {
         console.warn("Row not found for product:", id);
         return;
     }
 
-    const cells = row.children;
+    row.querySelector('[data-field="name"]').textContent = updatedProduct.name;
+    row.querySelector('[data-field="price"]').textContent = updatedProduct.price;
+    row.querySelector('[data-field="description"]').textContent = updatedProduct.description;
+    row.querySelector('[data-field="stockQuantity"]').textContent = updatedProduct.stockQuantity;
+    row.querySelector('[data-field="category"]').textContent = updatedProduct.category;
 
-    // cells[0] = Id
-    cells[1].textContent = updatedProduct.name;
-    cells[2].textContent = `£${updatedProduct.price}`;
-    cells[3].textContent = updatedProduct.description;
+}
 
+function addProductRow(product) {
+    const tbody = document.querySelector(".products-table tbody");
+
+    const row = document.createElement("tr");
+    row.setAttribute("data-product-id", product.id);
+
+    row.innerHTML = `
+        <td>${product.id}</td>
+        <td data-field="name">${product.name}</td>
+        <td data-field="price">£${product.price}</td>
+        <td data-field="description">${product.description}</td>
+        <td>
+            <button class="btn btn-sm btn-secondary edit-btn"
+                    data-product-id="${product.id}">Edit</button>
+            <button class="btn btn-sm btn-danger delete-btn"
+                    data-product-id="${product.id}">Delete</button>
+        </td>`;
+
+    tbody.prepend(row);
+
+    row.querySelector(".edit-btn")
+        .addEventListener("click", onEditProduct);
+
+    row.querySelector(".delete-btn")
+        .addEventListener("click", deleteProduct);
+}
+
+function clearCreateForm() {
+    document.getElementById("createName").value = "";
+    document.getElementById("createPrice").value = "";
+    document.getElementById("createDescription").value = "";
+    document.getElementById("createStock").value = "";
+    document.getElementById("createCategory").value = "";
+}
+
+function showValidationErrors(problem) {
+    const errorsDiv = document.getElementById("createErrors");
+    errorsDiv.innerHTML = "";
+
+    const messages = [];
+
+    for (const field in problem.errors) {
+        const feildErrors = problem.errors[field];
+
+        feildErrors.forEach(errorMessage => {
+            messages.push(errorMessage);
+        })
+    }
+    errorsDiv.innerHTML = messages.join("<br />");
 }

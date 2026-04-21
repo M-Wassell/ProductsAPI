@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
+using Contracts.Dto;
 using Microsoft.EntityFrameworkCore;
 using ProductsAPI.Classess;
 using ProductsAPI.Data;
-using Contracts.Dto;
 using ProductsAPI.Models;
 using ProductsAPI.Repository;
 using System.Globalization;
 using System.Xml.Linq;
+using static ProductsAPI.Enums.Status;
 
 namespace ProductsAPI.Services
 {
@@ -24,70 +25,85 @@ namespace ProductsAPI.Services
             _repo = repo;
         }
 
+        //public async Task<ServiceResponse<List<ProductDto>>> GetAll(int pageNumber, int pageSize)
+        //{
+
+
+        //    var response = new ServiceResponse<List<ProductDto>>();
+        //    var products = await _repo.GetAllAsync(pageNumber, pageSize);
+        //    try
+        //    {
+
+        //        if (products.Count <= 0) {
+        //            _logger.LogError("Failed to fetch all products");
+        //            response.Success = false;
+        //            response.Message = "Product List Could not be found";
+        //            return response;
+        //        }
+
+
+        //        response.Data = _mapper.Map<List<ProductDto>>(products);
+        //        response.Success = true;
+        //        response.Message = "Product List Found";
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Internal Server Error");
+        //        response.Success = false;
+        //        response.Message = "Server Error";
+        //    }
+           
+        //    return response;
+        //}
+
         public async Task<ServiceResponse<List<ProductDto>>> GetAll(int pageNumber, int pageSize)
         {
             _logger.LogInformation("Attempting to fetch all products");
-
-            var response = new ServiceResponse<List<ProductDto>>();
             var products = await _repo.GetAllAsync(pageNumber, pageSize);
-            try
-            {
 
-                if (products.Count <= 0) {
-                    _logger.LogError("Failed to fetch all products");
-                    response.Success = false;
-                    response.Message = "Product List Could not be found";
-                    return response;
-                }
-
-                _logger.LogInformation("Success");
-                response.Data = _mapper.Map<List<ProductDto>>(products);
-                response.Success = true;
-                response.Message = "Product List Found";
-            }
-            catch (Exception ex)
+            return new ServiceResponse<List<ProductDto>>
             {
-                _logger.LogError(ex, "Internal Server Error");
-                response.Success = false;
-                response.Message = "Server Error";
-            }
-           
-            return response;
+                                
+                Data = _mapper.Map<List<ProductDto>>(products),
+                Success = true,
+                Message = "All products retrieved Successfully"
+            };
+
         }
 
-        public async Task<ServiceResponse<ProductDto>> GetById(int id)
+        public async Task<ServiceResponse<ProductDto>> GetProductById(int id)
         {
-            _logger.LogInformation("Attempting to fetch product by {id}", id);
-            var response = new ServiceResponse<ProductDto>();
 
-            try
+            var product = await _repo.GetByIdAsync(id);
+
+            if (product == null)
             {
-                if (id <= 0) {
-                    _logger.LogError("Failed to fetch product {id}", id);
-                    response.Success = false;
-                    response.Message = "Product Id not found";
-                    return response;
-                }
-
-                var product = await _repo.GetByIdAsync(id);
-
-                var dto = _mapper.Map<ProductDto>(product); 
-                await _repo.SaveChangesAsync();
-
-                response.Data = dto;
-                response.Success = true;
-                response.Message = "Product found";
-
-                _logger.LogInformation("Successfully fetched product by {id}", id);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Internal Server Error");
-                response.Success = false;
-                response.Message = "Server Error";
+                return new ServiceResponse<ProductDto>
+                {
+                    Success = false,
+                    Status = ServiceStatus.NotFound,
+                    Message = "Product Does not exist"
+                };
             }
 
-            return response;
+            if (!product.IsActive)
+            {
+                return new ServiceResponse<ProductDto>
+                {
+                    Success = true,
+                    Status = ServiceStatus.Deleted,
+                    Data = null,
+                    Message = "Product has been deleted"
+                };
+            }
+
+            return new ServiceResponse<ProductDto>
+            {
+                Success = true,
+                Status = ServiceStatus.Success,
+                Data = _mapper.Map<ProductDto>(product),
+                Message = "Product Retrieved Successfully"
+            };
         }
 
         public async Task<ServiceResponse<ProductDto>> Create(CreateProductDto createProductDto)
